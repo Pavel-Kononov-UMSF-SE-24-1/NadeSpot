@@ -1110,6 +1110,27 @@
         <li><a href="#" onclick="showSection('upload'); return false;">Загрузить</a></li>
         <li><a href="#" onclick="showSection('admin'); return false;">Управление</a></li>
         <li><a href="#" onclick="showSection('about'); return false;">О сайте</a></li>
+        <!-- Переключатель языка -->
+        <li class="language-selector">
+          <button class="language-btn" id="language-btn">
+            <i class="fas fa-globe"></i>
+            <span id="current-language">Русский</span>
+          </button>
+          <div class="language-dropdown" id="language-dropdown">
+            <div class="language-option" data-lang="ru">
+              <i class="fas fa-check" style="display: none;"></i>
+              <span>Русский</span>
+            </div>
+            <div class="language-option" data-lang="en">
+              <i class="fas fa-check" style="display: none;"></i>
+              <span>English</span>
+            </div>
+            <div class="language-option" data-lang="uk">
+              <i class="fas fa-check" style="display: none;"></i>
+              <span>Українська</span>
+            </div>
+          </div>
+        </li>
       </ul>
     </div>
   </nav>
@@ -1457,6 +1478,318 @@
   </footer>
 
   <script>
+     // Текущий язык и фон
+    let currentLanguage = localStorage.getItem('nadespot_language') || 'ru';
+
+    // Локализация
+    const translations = {
+      'ru': {
+        'nav.home': 'Главная',
+        'nav.videos': 'Видео',
+        'nav.collections': 'Коллекции',
+        'nav.upload': 'Загрузить',
+        'nav.admin': 'Управление',
+        'nav.about': 'О сайте',
+        
+        'home.title': 'Лучшие гранаты в CS2',
+        'home.subtitle': 'Изучайте, практикуйте и совершенствуйте свои навыки владения гранатами',
+        'home.watch': 'Смотреть гранаты',
+        'home.upload': 'Загрузить видео',
+        
+        'videos.title': 'Популярные гранаты',
+        'videos.search': 'Поиск по названию, карте или описанию...',
+        'videos.category': 'Категория',
+        'videos.all_categories': 'Все категории',
+        'videos.smoke': 'Дымовые',
+        'videos.flash': 'Светошумовые',
+        'videos.molotov': 'Зажигательные',
+        'videos.he': 'Осколочные',
+        'videos.map': 'Карта',
+        'videos.all_maps': 'Все карты',
+        'videos.side': 'Сторона',
+        'videos.both_sides': 'Обе стороны',
+        'videos.ct': 'Контр-террористы',
+        'videos.t': 'Террористы',
+        'videos.sort': 'Сортировка',
+        'videos.newest': 'Сначала новые',
+        'videos.oldest': 'Сначала старые',
+        'videos.popular': 'По популярности',
+        'videos.rating': 'По рейтингу',
+        'videos.all': 'Все',
+        
+        'collections.title': 'Мои коллекции',
+        'collections.create': 'Создать коллекцию',
+        'collections.favorites': 'Избранное',
+        
+        'favorites.title': 'Избранные гранаты',
+        
+        'upload.title': 'Загрузить видео',
+        'upload.file': 'Файл видео',
+        'upload.youtube': 'YouTube ссылка',
+        'upload.drag': 'Перетащите видеофайл сюда или',
+        'upload.select': 'Выбрать файл',
+        'upload.youtube_url': 'Ссылка на YouTube видео',
+        'upload.youtube_placeholder': 'https://www.youtube.com/watch?v=...',
+        'upload.video_title': 'Название видео',
+        'upload.title_placeholder': 'Введите название видео',
+        'upload.category': 'Категория гранаты',
+        'upload.select_category': 'Выберите категорию',
+        'upload.map': 'Карта',
+        'upload.map_placeholder': 'Например: Mirage, Dust2',
+        'upload.side': 'Сторона',
+        'upload.select_side': 'Выберите сторону',
+        'upload.difficulty': 'Сложность',
+        'upload.select_difficulty': 'Выберите сложность',
+        'upload.easy': 'Легкая',
+        'upload.medium': 'Средняя',
+        'upload.hard': 'Сложная',
+        'upload.description': 'Описание',
+        'upload.description_placeholder': 'Опишите свой заброс',
+        'upload.button': 'Загрузить видео',
+        
+        'admin.title': 'Управление видео',
+        'admin.description': 'Здесь вы можете управлять загруженными видео. Для удаления видео нажмите на кнопку "Удалить".',
+        
+        'view3d.title': '3D Просмотр траектории',
+        'view3d.instructions': 'Используйте мышь для вращения и колесо для масштабирования',
+        'view3d.top': 'Вид сверху',
+        'view3d.side': 'Вид сбоку',
+        'view3d.first': 'От первого лица',
+        'view3d.demo_title': 'Траектория дымовой гранаты на Мираж',
+        'view3d.demo_meta': 'Дымовая граната • Mirage',
+        'view3d.demo_side': 'CT сторона',
+        'view3d.demo_description': 'Заброс из spawn точки CT в окно на середину карты. Позволяет заблокировать обзор противнику в начале раунда.',
+        'view3d.accuracy': 'Точность: 95%',
+        'view3d.flight_time': 'Время полета: 3.2с',
+        
+        'confirm.title': 'Подтверждение удаления',
+        'confirm.message': 'Вы уверены, что хотите удалить эту коллекцию? Это действие нельзя отменить.',
+        'confirm.yes': 'Да, удалить',
+        'confirm.no': 'Отмена',
+        
+        'about.title': 'О сайте',
+        'about.description1': 'NadeSpot — это платформа для изучения и применениями гранат в Counter-Strike 2. Наша цель — помочь игрокам улучшить свои навыки и тактическое мышление.',
+        'about.description2': 'Здесь вы найдете тщательно отобранные видео с эффективными применениями гранат на всех популярных картах. Наша команда модераторов проверяет каждый материал перед публикацией.',
+        'about.feature1_title': 'Качественный контент',
+        'about.feature1_desc': 'Все видео проверяются на эффективность и актуальность',
+        'about.feature2_title': 'Удобная категоризация',
+        'about.feature2_desc': 'Гранаты отсортированы по типам и картам для быстрого поиска',
+        'about.feature3_title': 'Все карты CS2',
+        'about.feature3_desc': 'Гранаты для всех официальных и популярных кастомных карт',
+        'about.feature4_title': 'Актуальные стратегии',
+        'about.feature4_desc': 'Мы регулярно обновляем коллекцию под текущую мету игры',
+        
+        'footer.copyright': 'NadeSpot © 2025 - Все права защищены',
+        'footer.demo': 'Это демонстрационный сайт, созданный в образовательных целях',
+        
+        'background.change': 'Сменить фон',
+        'background.default': 'Стандартный фон'
+      },
+      'en': {
+        'nav.home': 'Home',
+        'nav.videos': 'Videos',
+        'nav.collections': 'Collections',
+        'nav.upload': 'Upload',
+        'nav.admin': 'Admin',
+        'nav.about': 'About',
+        
+        'home.title': 'Best Grenades in CS2',
+        'home.subtitle': 'Learn, practice and perfect your grenade skills',
+        'home.watch': 'Watch grenades',
+        'home.upload': 'Upload video',
+        
+        'videos.title': 'Popular grenades',
+        'videos.search': 'Search by name, map or description...',
+        'videos.category': 'Category',
+        'videos.all_categories': 'All categories',
+        'videos.smoke': 'Smoke',
+        'videos.flash': 'Flashbang',
+        'videos.molotov': 'Molotov',
+        'videos.he': 'HE Grenade',
+        'videos.map': 'Map',
+        'videos.all_maps': 'All maps',
+        'videos.side': 'Side',
+        'videos.both_sides': 'Both sides',
+        'videos.ct': 'Counter-Terrorists',
+        'videos.t': 'Terrorists',
+        'videos.sort': 'Sort by',
+        'videos.newest': 'Newest first',
+        'videos.oldest': 'Oldest first',
+        'videos.popular': 'Most popular',
+        'videos.rating': 'Highest rated',
+        'videos.all': 'All',
+        
+        'collections.title': 'My collections',
+        'collections.create': 'Create collection',
+        'collections.favorites': 'Favorites',
+        
+        'favorites.title': 'Favorite grenades',
+        
+        'upload.title': 'Upload video',
+        'upload.file': 'Video file',
+        'upload.youtube': 'YouTube link',
+        'upload.drag': 'Drag video file here or',
+        'upload.select': 'Select file',
+        'upload.youtube_url': 'YouTube video link',
+        'upload.youtube_placeholder': 'https://www.youtube.com/watch?v=...',
+        'upload.video_title': 'Video title',
+        'upload.title_placeholder': 'Enter video title',
+        'upload.category': 'Grenade category',
+        'upload.select_category': 'Select category',
+        'upload.map': 'Map',
+        'upload.map_placeholder': 'For example: Mirage, Dust2',
+        'upload.side': 'Side',
+        'upload.select_side': 'Select side',
+        'upload.difficulty': 'Difficulty',
+        'upload.select_difficulty': 'Select difficulty',
+        'upload.easy': 'Easy',
+        'upload.medium': 'Medium',
+        'upload.hard': 'Hard',
+        'upload.description': 'Description',
+        'upload.description_placeholder': 'Describe your throw',
+        'upload.button': 'Upload video',
+        
+        'admin.title': 'Video management',
+        'admin.description': 'Here you can manage uploaded videos. To delete a video, click the "Delete" button.',
+        
+        'view3d.title': '3D Trajectory View',
+        'view3d.instructions': 'Use the mouse to rotate and the wheel to zoom',
+        'view3d.top': 'Top view',
+        'view3d.side': 'Side view',
+        'view3d.first': 'First person',
+        'view3d.demo_title': 'Smoke grenade trajectory on Mirage',
+        'view3d.demo_meta': 'Smoke grenade • Mirage',
+        'view3d.demo_side': 'CT side',
+        'view3d.demo_description': 'Throw from CT spawn to window in mid. Allows to block enemy vision at the beginning of the round.',
+        'view3d.accuracy': 'Accuracy: 95%',
+        'view3d.flight_time': 'Flight time: 3.2s',
+        
+        'confirm.title': 'Confirm deletion',
+        'confirm.message': 'Are you sure you want to delete this collection? This action cannot be undone.',
+        'confirm.yes': 'Yes, delete',
+        'confirm.no': 'Cancel',
+        
+        'about.title': 'About',
+        'about.description1': 'NadeSpot is a platform for learning and using grenades in Counter-Strike 2. Our goal is to help players improve their skills and tactical thinking.',
+        'about.description2': 'Here you will find carefully selected videos with effective grenade uses on all popular maps. Our team of moderators checks each material before publication.',
+        'about.feature1_title': 'Quality content',
+        'about.feature1_desc': 'All videos are checked for effectiveness and relevance',
+        'about.feature2_title': 'Convenient categorization',
+        'about.feature2_desc': 'Grenades are sorted by type and map for quick search',
+        'about.feature3_title': 'All CS2 maps',
+        'about.feature3_desc': 'Grenades for all official and popular custom maps',
+        'about.feature4_title': 'Relevant strategies',
+        'about.feature4_desc': 'We regularly update the collection according to the current game meta',
+        
+        'footer.copyright': 'NadeSpot © 2025 - All rights reserved',
+        'footer.demo': 'This is a demo site created for educational purposes',
+        
+        'background.change': 'Change background',
+        'background.default': 'Default background'
+      },
+      'uk': {
+        'nav.home': 'Головна',
+        'nav.videos': 'Відео',
+        'nav.collections': 'Колекції',
+        'nav.upload': 'Завантажити',
+        'nav.admin': 'Керування',
+        'nav.about': 'Про сайт',
+        
+        'home.title': 'Найкращі гранати в CS2',
+        'home.subtitle': 'Вивчайте, практикуйте та вдосконалюйте свої навички володіння гранатами',
+        'home.watch': 'Дивитися гранати',
+        'home.upload': 'Завантажити відео',
+        
+        'videos.title': 'Популярні гранати',
+        'videos.search': 'Пошук за назвою, картою або описом...',
+        'videos.category': 'Категорія',
+        'videos.all_categories': 'Всі категорії',
+        'videos.smoke': 'Димові',
+        'videos.flash': 'Світлошумові',
+        'videos.molotov': 'Запальні',
+        'videos.he': 'Осколкові',
+        'videos.map': 'Карта',
+        'videos.all_maps': 'Всі карти',
+        'videos.side': 'Сторона',
+        'videos.both_sides': 'Обидві сторони',
+        'videos.ct': 'Контр-терористи',
+        'videos.t': 'Терористи',
+        'videos.sort': 'Сортування',
+        'videos.newest': 'Спочатку нові',
+        'videos.oldest': 'Спочатку старі',
+        'videos.popular': 'За популярністю',
+        'videos.rating': 'За рейтингом',
+        'videos.all': 'Всі',
+        
+        'collections.title': 'Мої колекції',
+        'collections.create': 'Створити колекцію',
+        'collections.favorites': 'Обране',
+        
+        'favorites.title': 'Обрані гранати',
+        
+        'upload.title': 'Завантажити відео',
+        'upload.file': 'Файл відео',
+        'upload.youtube': 'Посилання на YouTube',
+        'upload.drag': 'Перетягніть файл сюди або',
+        'upload.select': 'Вибрати файл',
+        'upload.youtube_url': 'Посилання на YouTube відео',
+        'upload.youtube_placeholder': 'https://www.youtube.com/watch?v=...',
+        'upload.video_title': 'Назва відео',
+        'upload.title_placeholder': 'Введіть назву відео',
+        'upload.category': 'Категорія гранати',
+        'upload.select_category': 'Виберіть категорію',
+        'upload.map': 'Карта',
+        'upload.map_placeholder': 'Наприклад: Mirage, Dust2',
+        'upload.side': 'Сторона',
+        'upload.select_side': 'Виберіть сторону',
+        'upload.difficulty': 'Складність',
+        'upload.select_difficulty': 'Виберіть складність',
+        'upload.easy': 'Легка',
+        'upload.medium': 'Середня',
+        'upload.hard': 'Складна',
+        'upload.description': 'Опис',
+        'upload.description_placeholder': 'Опишіть свій кидок',
+        'upload.button': 'Завантажити відео',
+        
+        'admin.title': 'Керування відео',
+        'admin.description': 'Тут ви можете керувати завантаженими відео. Для видалення відео натисніть кнопку "Видалити".',
+        
+        'view3d.title': '3D Перегляд траєкторії',
+        'view3d.instructions': 'Використовуйте мишу для обертання та колесо для масштабування',
+        'view3d.top': 'Вид зверху',
+        'view3d.side': 'Вид збоку',
+        'view3d.first': 'Від першої особи',
+        'view3d.demo_title': 'Траєкторія димової гранати на Mirage',
+        'view3d.demo_meta': 'Димова граната • Mirage',
+        'view3d.demo_side': 'CT сторона',
+        'view3d.demo_description': 'Кидок з spawn точки CT у вікно на середину карти. Дозволяє заблокувати огляд противнику на початку раунду.',
+        'view3d.accuracy': 'Точність: 95%',
+        'view3d.flight_time': 'Час польоту: 3.2с',
+        
+        'confirm.title': 'Підтвердження видалення',
+        'confirm.message': 'Ви впевнені, що хочете видалити цю колекцію? Цю дію не можна скасувати.',
+        'confirm.yes': 'Так, видалити',
+        'confirm.no': 'Скасувати',
+        
+        'about.title': 'Про сайт',
+        'about.description1': 'NadeSpot — це платформа для вивчення та застосування гранат у Counter-Strike 2. Наша мета — допомогти гравцям покращити свої навички та тактичне мислення.',
+        'about.description2': 'Тут ви знайдете ретельно відібрані відео з ефективними застосуваннями гранат на всіх популярних картах. Наша команда модераторів перевіряє кожен матеріал перед публікацією.',
+        'about.feature1_title': 'Якісний контент',
+        'about.feature1_desc': 'Усі відео перевіряються на ефективність та актуальність',
+        'about.feature2_title': 'Зручна категорізація',
+        'about.feature2_desc': 'Гранати відсортовані за типами та картами для швидкого пошуку',
+        'about.feature3_title': 'Усі карти CS2',
+        'about.feature3_desc': 'Гранати для всіх офіційних та популярних кастомних карт',
+        'about.feature4_title': 'Актуальні стратегії',
+        'about.feature4_desc': 'Ми регулярно оновлюємо колекцію під поточну мету гри',
+        
+        'footer.copyright': 'NadeSpot © 2025 - Всі права захищені',
+        'footer.demo': 'Це демонстраційний сайт, створений в освітніх цілях',
+        
+        'background.change': 'Змінити фон',
+        'background.default': 'Стандартний фон'
+      }
+    };
     // Хранилище для видео
     let videos = JSON.parse(localStorage.getItem('nadespot_videos')) || [];
     let collections = JSON.parse(localStorage.getItem('nadespot_collections')) || [];
@@ -1519,12 +1852,65 @@
         init3DViewer();
       }
     }
+     // Инициализация языка
+    function initLanguage() {
+      // Установка текущего языка
+      const languageNames = {
+        'ru': 'Русский',
+        'en': 'English',
+        'uk': 'Українська'
+      };
+      
+      document.getElementById('current-language').textContent = languageNames[currentLanguage];
+      
+      // Показать галочку у текущего языка
+      document.querySelectorAll('.language-option').forEach(option => {
+        const icon = option.querySelector('i');
+        if (option.getAttribute('data-lang') === currentLanguage) {
+          icon.style.display = 'inline-block';
+        } else {
+          icon.style.display = 'none';
+        }
+      });
+      
+      // Применить перевод
+      applyTranslation(currentLanguage);
+    }
     
+    // Применить перевод
+    function applyTranslation(lang) {
+      // Обновляем все элементы с атрибутом data-i18n
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+          element.textContent = translations[lang][key];
+        }
+      });
+      
+      // Обновляем placeholder'ы
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+        const key = element.getAttribute('data-i18n-placeholder');
+        if (translations[lang][key]) {
+          element.setAttribute('placeholder', translations[lang][key]);
+        }
+      });
+    }
     // Мобильное меню
     document.getElementById('menu-toggle').addEventListener('click', function() {
       document.getElementById('nav-links').classList.toggle('active');
     });
+    // Переключение языка
+    document.getElementById('language-btn').addEventListener('click', function() {
+      document.getElementById('language-dropdown').classList.toggle('show');
+    });
     
+    document.querySelectorAll('.language-option').forEach(option => {
+      option.addEventListener('click', function() {
+        const lang = this.getAttribute('data-lang');
+        changeLanguage(lang);
+        document.getElementById('language-dropdown').classList.remove('show');
+      });
+    });
     // Переключение типа загрузки
     document.querySelectorAll('.upload-type-btn').forEach(btn => {
       btn.addEventListener('click', function() {
@@ -2300,4 +2686,5 @@
 </body>
 
 </html>
+
 
