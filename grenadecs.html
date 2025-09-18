@@ -103,22 +103,31 @@
       background: var(--primary);
     }
     
-    /* Мобильное меню */
-    .menu-toggle {
-      display: none;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 30px;
-      height: 21px;
-      cursor: pointer;
+    /* Language Switcher */
+    .language-switcher {
+      display: flex;
+      margin-left: 20px;
+      gap: 5px;
     }
     
-    .menu-toggle span {
-      height: 3px;
-      width: 100%;
-      background-color: var(--light);
-      border-radius: 3px;
-      transition: all 0.3s;
+    .lang-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: var(--light);
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 12px;
+    }
+    
+    .lang-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .lang-btn.active {
+      background: var(--primary);
+      color: white;
     }
     
     /* Главный баннер */
@@ -1084,6 +1093,12 @@
       .viewer-3d {
         height: 300px;
       }
+      
+      .language-switcher {
+        margin-top: 15px;
+        margin-left: 0;
+        justify-content: center;
+      }
     }
   </style>
 </head>
@@ -1094,7 +1109,7 @@
     <div class="nav-container">
       <a href="#" class="logo" onclick="showSection('home'); return false;">
         <i class="fas fa-bomb"></i>
-        <span>NadeSpot</span>
+        <span data-translate="logo">NadeSpot</span>
       </a>
       
       <div class="menu-toggle" id="menu-toggle">
@@ -1104,12 +1119,20 @@
       </div>
       
       <ul class="nav-links" id="nav-links">
-        <li><a href="#" class="active" onclick="showSection('home'); return false;">Главная</a></li>
-        <li><a href="#" onclick="showSection('videos'); return false;">Видео</a></li>
-        <li><a href="#" onclick="showSection('collections'); return false;">Коллекции</a></li>
-        <li><a href="#" onclick="showSection('upload'); return false;">Загрузить</a></li>
-        <li><a href="#" onclick="showSection('admin'); return false;">Управление</a></li>
-        <li><a href="#" onclick="showSection('about'); return false;">О сайте</a></li>
+        <li><a href="#" class="active" onclick="showSection('home'); return false;" data-translate="nav_home">Главная</a></li>
+        <li><a href="#" onclick="showSection('videos'); return false;" data-translate="nav_videos">Видео</a></li>
+        <li><a href="#" onclick="showSection('collections'); return false;" data-translate="nav_collections">Коллекции</a></li>
+        <li><a href="#" onclick="showSection('upload'); return false;" data-translate="nav_upload">Загрузить</a></li>
+        <li><a href="#" onclick="showSection('admin'); return false;" data-translate="nav_admin">Управление</a></li>
+        <li><a href="#" onclick="showSection('about'); return false;" data-translate="nav_about">О сайте</a></li>
+        
+        <li>
+          <div class="language-switcher">
+            <button class="lang-btn active" data-lang="ru">RU</button>
+            <button class="lang-btn" data-lang="uk">UA</button>
+            <button class="lang-btn" data-lang="en">EN</button>
+          </div>
+        </li>
       </ul>
     </div>
   </nav>
@@ -1121,11 +1144,11 @@
   <section id="home" class="active">
     <div class="hero">
       <div class="hero-content">
-        <h1 class="animate__animated animate__fadeInDown">Лучшие гранаты в CS2</h1>
-        <p class="animate__animated animate__fadeInUp">Изучайте, практикуйте и совершенствуйте свои навыки владения гранатами</p>
+        <h1 class="animate__animated animate__fadeInDown" data-translate="hero_title">Лучшие гранаты в CS2</h1>
+        <p class="animate__animated animate__fadeInUp" data-translate="hero_text">Изучайте, практикуйте и совершенствуйте свои навыки владения гранатами</p>
         <div class="hero-buttons">
-          <a href="#" class="btn" onclick="showSection('videos'); return false;">Смотреть гранаты</a>
-          <a href="#" class="btn btn-outline" onclick="showSection('upload'); return false;">Загрузить видео</a>
+          <a href="#" class="btn" onclick="showSection('videos'); return false;" data-translate="hero_btn_watch">Смотреть гранаты</a>
+          <a href="#" class="btn btn-outline" onclick="showSection('upload'); return false;" data-translate="hero_btn_upload">Загрузить видео</a>
         </div>
       </div>
     </div>
@@ -1133,30 +1156,30 @@
 
   <!-- Видео -->
   <section id="videos">
-    <h2 class="section-title">Популярные гранаты</h2>
+    <h2 class="section-title" data-translate="videos_title">Популярные гранаты</h2>
     
     <div class="search-filters">
       <div class="search-box">
-        <input type="text" id="search-input" placeholder="Поиск по названию, карте или описанию...">
+        <input type="text" id="search-input" data-placeholder="search_placeholder" placeholder="Поиск по названию, карте или описанию...">
         <button onclick="searchVideos()"><i class="fas fa-search"></i></button>
       </div>
       
       <div class="advanced-filters">
         <div class="filter-group">
-          <label for="filter-category">Категория</label>
+          <label for="filter-category" data-translate="filter_category">Категория</label>
           <select id="filter-category" onchange="filterVideos()">
-            <option value="all">Все категории</option>
-            <option value="smoke">Дымовые</option>
-            <option value="flash">Светошумовые</option>
-            <option value="molotov">Зажигательные</option>
-            <option value="he">Осколочные</option>
+            <option value="all" data-translate="filter_all">Все категории</option>
+            <option value="smoke" data-translate="filter_smoke">Дымовые</option>
+            <option value="flash" data-translate="filter_flash">Светошумовые</option>
+            <option value="molotov" data-translate="filter_molotov">Зажигательные</option>
+            <option value="he" data-translate="filter_he">Осколочные</option>
           </select>
         </div>
         
         <div class="filter-group">
-          <label for="filter-map">Карта</label>
+          <label for="filter-map" data-translate="filter_map">Карта</label>
           <select id="filter-map" onchange="filterVideos()">
-            <option value="all">Все карты</option>
+            <option value="all" data-translate="filter_all">Все карты</option>
             <option value="Mirage">Mirage</option>
             <option value="Dust2">Dust II</option>
             <option value="Inferno">Inferno</option>
@@ -1168,32 +1191,32 @@
         </div>
         
         <div class="filter-group">
-          <label for="filter-side">Сторона</label>
+          <label for="filter-side" data-translate="filter_side">Сторона</label>
           <select id="filter-side" onchange="filterVideos()">
-            <option value="all">Обе стороны</option>
-            <option value="CT">Контр-террористы</option>
-            <option value="T">Террористы</option>
+            <option value="all" data-translate="filter_both">Обе стороны</option>
+            <option value="CT" data-translate="filter_ct">Контр-террористы</option>
+            <option value="T" data-translate="filter_t">Террористы</option>
           </select>
         </div>
         
         <div class="filter-group">
-          <label for="filter-sort">Сортировка</label>
+          <label for="filter-sort" data-translate="filter_sort">Сортировка</label>
           <select id="filter-sort" onchange="filterVideos()">
-            <option value="newest">Сначала новые</option>
-            <option value="oldest">Сначала старые</option>
-            <option value="popular">По популярности</option>
-            <option value="rating">По рейтингу</option>
+            <option value="newest" data-translate="sort_newest">Сначала новые</option>
+            <option value="oldest" data-translate="sort_oldest">Сначала старые</option>
+            <option value="popular" data-translate="sort_popular">По популярности</option>
+            <option value="rating" data-translate="sort_rating">По рейтингу</option>
           </select>
         </div>
       </div>
     </div>
     
     <div class="categories">
-      <button class="category-btn active" data-filter="all">Все</button>
-      <button class="category-btn" data-filter="smoke">Дымовые</button>
-      <button class="category-btn" data-filter="flash">Светошумовые</button>
-      <button class="category-btn" data-filter="molotov">Зажигательные</button>
-      <button class="category-btn" data-filter="he">Осколочные</button>
+      <button class="category-btn active" data-filter="all" data-translate="filter_all">Все</button>
+      <button class="category-btn" data-filter="smoke" data-translate="filter_smoke">Дымовые</button>
+      <button class="category-btn" data-filter="flash" data-translate="filter_flash">Светошумовые</button>
+      <button class="category-btn" data-filter="molotov" data-translate="filter_molotov">Зажигательные</button>
+      <button class="category-btn" data-filter="he" data-translate="filter_he">Осколочные</button>
     </div>
     
     <div class="video-grid" id="video-container">
@@ -1203,14 +1226,14 @@
 
   <!-- Коллекции -->
   <section id="collections">
-    <h2 class="section-title">Мои коллекции</h2>
+    <h2 class="section-title" data-translate="collections_title">Мои коллекции</h2>
     
     <div class="hero-buttons" style="justify-content: center; margin-bottom: 30px;">
       <button class="btn" onclick="createNewCollection()">
-        <i class="fas fa-plus"></i> Создать коллекцию
+        <i class="fas fa-plus"></i> <span data-translate="collections_create">Создать коллекцию</span>
       </button>
       <button class="btn btn-info" onclick="showSection('favorites')">
-        <i class="fas fa-star"></i> Избранное
+        <i class="fas fa-star"></i> <span data-translate="collections_favorites">Избранное</span>
       </button>
     </div>
     
@@ -1221,7 +1244,7 @@
 
   <!-- Избранное -->
   <section id="favorites">
-    <h2 class="section-title">Избранные гранаты</h2>
+    <h2 class="section-title" data-translate="favorites_title">Избранные гранаты</h2>
     
     <div class="video-grid" id="favorites-container">
       <!-- Избранные видео будут добавляться динамически -->
@@ -1230,86 +1253,86 @@
 
   <!-- Загрузка видео -->
   <section id="upload">
-    <h2 class="section-title">Загрузить видео</h2>
+    <h2 class="section-title" data-translate="upload_title">Загрузить видео</h2>
     
     <div class="upload-form">
       <div class="upload-types">
-        <button class="upload-type-btn active" data-type="file">Файл видео</button>
-        <button class="upload-type-btn" data-type="youtube">YouTube ссылка</button>
+        <button class="upload-type-btn active" data-type="file" data-translate="upload_type_file">Файл видео</button>
+        <button class="upload-type-btn" data-type="youtube" data-translate="upload_type_youtube">YouTube ссылка</button>
       </div>
       
       <div id="file-upload-section">
         <div class="file-upload" id="drop-zone">
           <i class="fas fa-cloud-upload-alt"></i>
-          <p>Перетащите видеофайл сюда или</p>
-          <label for="video-file" class="btn">Выбрать файл</label>
+          <p data-translate="upload_drag">Перетащите видеофайл сюда или</p>
+          <label for="video-file" class="btn" data-translate="upload_select">Выбрать файл</label>
           <input type="file" id="video-file" accept="video/*" style="display: none;">
         </div>
       </div>
       
       <div id="youtube-upload-section" style="display: none;">
         <div class="form-group">
-          <label for="youtube-url">Ссылка на YouTube видео</label>
-          <input type="url" id="youtube-url" class="form-control" placeholder="https://www.youtube.com/watch?v=...">
+          <label for="youtube-url" data-translate="upload_youtube_label">Ссылка на YouTube видео</label>
+          <input type="url" id="youtube-url" class="form-control" data-placeholder="upload_youtube_placeholder" placeholder="https://www.youtube.com/watch?v=...">
         </div>
       </div>
       
       <div class="form-group">
-        <label for="video-title">Название видео</label>
-        <input type="text" id="video-title" class="form-control" placeholder="Введите название видео">
+        <label for="video-title" data-translate="upload_title_label">Название видео</label>
+        <input type="text" id="video-title" class="form-control" data-placeholder="upload_title_placeholder" placeholder="Введите название видео">
       </div>
       
       <div class="form-group">
-        <label for="video-category">Категория гранаты</label>
+        <label for="video-category" data-translate="upload_category_label">Категория гранаты</label>
         <select id="video-category" class="form-control">
-          <option value="">Выберите категорию</option>
-          <option value="smoke">Дымовая</option>
-          <option value="flash">Светошумовая</option>
-          <option value="molotov">Зажигательная</option>
-          <option value="he">Осколочная</option>
+          <option value="" data-translate="upload_category_select">Выберите категорию</option>
+          <option value="smoke" data-translate="filter_smoke">Дымовая</option>
+          <option value="flash" data-translate="filter_flash">Светошумовая</option>
+          <option value="molotov" data-translate="filter_molotov">Зажигательная</option>
+          <option value="he" data-translate="filter_he">Осколочная</option>
         </select>
       </div>
       
       <div class="form-group">
-        <label for="video-map">Карта</label>
-        <input type="text" id="video-map" class="form-control" placeholder="Например: Mirage, Dust2">
+        <label for="video-map" data-translate="upload_map_label">Карта</label>
+        <input type="text" id="video-map" class="form-control" data-placeholder="upload_map_placeholder" placeholder="Например: Mirage, Dust2">
       </div>
       
       <div class="form-group">
-        <label for="video-side">Сторона</label>
+        <label for="video-side" data-translate="upload_side_label">Сторона</label>
         <select id="video-side" class="form-control">
-          <option value="">Выберите сторону</option>
-          <option value="CT">Контр-террористы</option>
-          <option value="T">Террористы</option>
-          <option value="both">Обе стороны</option>
+          <option value="" data-translate="upload_side_select">Выберите сторону</option>
+          <option value="CT" data-translate="filter_ct">Контр-террористы</option>
+          <option value="T" data-translate="filter_t">Террористы</option>
+          <option value="both" data-translate="filter_both">Обе стороны</option>
         </select>
       </div>
       
       <div class="form-group">
-        <label for="video-difficulty">Сложность</label>
+        <label for="video-difficulty" data-translate="upload_difficulty_label">Сложность</label>
         <select id="video-difficulty" class="form-control">
-          <option value="">Выберите сложность</option>
-          <option value="easy">Легкая</option>
-          <option value="medium">Средняя</option>
-          <option value="hard">Сложная</option>
+          <option value="" data-translate="upload_difficulty_select">Выберите сложность</option>
+          <option value="easy" data-translate="upload_difficulty_easy">Легкая</option>
+          <option value="medium" data-translate="upload_difficulty_medium">Средняя</option>
+          <option value="hard" data-translate="upload_difficulty_hard">Сложная</option>
         </select>
       </div>
       
       <div class="form-group">
-        <label for="video-description">Описание</label>
-        <textarea id="video-description" class="form-control" placeholder="Опишите свой заброс"></textarea>
+        <label for="video-description" data-translate="upload_description_label">Описание</label>
+        <textarea id="video-description" class="form-control" data-placeholder="upload_description_placeholder" placeholder="Опишите свой заброс"></textarea>
       </div>
       
-      <button class="btn" style="width: 100%;" onclick="uploadVideo()">Загрузить видео</button>
+      <button class="btn" style="width: 100%;" onclick="uploadVideo()" data-translate="upload_btn">Загрузить видео</button>
     </div>
   </section>
 
   <!-- Панель администратора -->
   <section id="admin">
-    <h2 class="section-title">Управление видео</h2>
+    <h2 class="section-title" data-translate="admin_title">Управление видео</h2>
     
     <div class="admin-panel">
-      <p>Здесь вы можете управлять загруженными видео. Для удаления видео нажмите на кнопку "Удалить".</p>
+      <p data-translate="admin_description">Здесь вы можете управлять загруженными видео. Для удаления видео нажмите на кнопку "Удалить".</p>
       
       <div class="admin-video-list" id="admin-video-list">
         <!-- Список видео для управления -->
@@ -1319,35 +1342,35 @@
 
   <!-- 3D просмотр -->
   <section id="view3d">
-    <h2 class="section-title">3D Просмотр траектории</h2>
+    <h2 class="section-title" data-translate="view3d_title">3D Просмотр траектории</h2>
     
     <div class="viewer-3d" id="viewer-3d">
       <div class="viewer-info">
-        <i class="fas fa-vr-cardboard"></i> Используйте мышь для вращения и колесо для масштабирования
+        <i class="fas fa-vr-cardboard"></i> <span data-translate="view3d_help">Используйте мышь для вращения и колесо для масштабирования</span>
       </div>
       <div class="viewer-controls">
-        <button onclick="changeView('top')"><i class="fas fa-download"></i> Вид сверху</button>
-        <button onclick="changeView('side')"><i class="fas fa-arrows-alt-h"></i> Вид сбоку</button>
-        <button onclick="changeView('first')"><i class="fas fa-eye"></i> От первого лица</button>
+        <button onclick="changeView('top')"><i class="fas fa-download"></i> <span data-translate="view3d_top">Вид сверху</span></button>
+        <button onclick="changeView('side')"><i class="fas fa-arrows-alt-h"></i> <span data-translate="view3d_side">Вид сбоку</span></button>
+        <button onclick="changeView('first')"><i class="fas fa-eye"></i> <span data-translate="view3d_first">От первого лица</span></button>
       </div>
       <canvas id="nade-canvas" width="800" height="400"></canvas>
     </div>
     
     <div class="video-info">
-      <h3 class="video-title" id="viewer-title">Траектория дымовой гранаты на Мираж</h3>
+      <h3 class="video-title" id="viewer-title" data-translate="view3d_example_title">Траектория дымовой гранаты на Мираж</h3>
       <div class="video-meta">
-        <span>Дымовая граната • Mirage</span>
-        <span>CT сторона</span>
+        <span data-translate="view3d_example_meta">Дымовая граната • Mirage</span>
+        <span data-translate="view3d_example_side">CT сторона</span>
       </div>
-      <p>Заброс из spawn точки CT в окно на середину карты. Позволяет заблокировать обзор противнику в начале раунда.</p>
+      <p data-translate="view3d_example_desc">Заброс из spawn точки CT в окно на середину карты. Позволяет заблокировать обзор противнику в начале раунда.</p>
       <div class="video-stats">
         <div class="video-stat">
           <i class="fas fa-bullseye"></i>
-          <span>Точность: 95%</span>
+          <span data-translate="view3d_accuracy">Точность: 95%</span>
         </div>
         <div class="video-stat">
           <i class="fas fa-clock"></i>
-          <span>Время полета: 3.2с</span>
+          <span data-translate="view3d_time">Время полета: 3.2с</span>
         </div>
       </div>
     </div>
@@ -1386,26 +1409,26 @@
   <!-- Модальное окно подтверждения удаления -->
   <div class="confirm-modal" id="confirm-modal">
     <div class="confirm-content">
-      <h3 id="confirm-title">Подтверждение удаления</h3>
-      <p id="confirm-message">Вы уверены, что хотите удалить эту коллекцию? Это действие нельзя отменить.</p>
+      <h3 id="confirm-title" data-translate="confirm_title">Подтверждение удаления</h3>
+      <p id="confirm-message" data-translate="confirm_message">Вы уверены, что хотите удалить эту коллекцию? Это действие нельзя отменить.</p>
       <div class="confirm-buttons">
-        <button class="btn btn-danger" id="confirm-yes">Да, удалить</button>
-        <button class="btn" id="confirm-no">Отмена</button>
+        <button class="btn btn-danger" id="confirm-yes" data-translate="confirm_yes">Да, удалить</button>
+        <button class="btn" id="confirm-no" data-translate="confirm_no">Отмена</button>
       </div>
     </div>
   </div>
 
   <!-- О сайте -->
   <section id="about">
-    <h2 class="section-title">О сайте</h2>
+    <h2 class="section-title" data-translate="about_title">О сайте</h2>
     
     <div class="about-content">
-      <p>
+      <p data-translate="about_text1">
         NadeSpot — это платформа для изучения и применениями гранат в Counter-Strike 2. 
         Наша цель — помочь игрокам улучшить свои навыки и тактическое мышление.
       </p>
       
-      <p>
+      <p data-translate="about_text2">
         Здесь вы найдете тщательно отобранные видео с эффективными применениями гранат на всех популярных картах. 
         Наша команда модераторов проверяет каждый материал перед публикацией.
       </p>
@@ -1413,26 +1436,26 @@
       <div class="features">
         <div class="feature">
           <i class="fas fa-filter"></i>
-          <h3>Качественный контент</h3>
-          <p>Все видео проверяются на эффективность и актуальность</p>
+          <h3 data-translate="about_feature1_title">Качественный контент</h3>
+          <p data-translate="about_feature1_desc">Все видео проверяются на эффективность и актуальность</p>
         </div>
         
         <div class="feature">
           <i class="fas fa-sort-amount-down"></i>
-          <h3>Удобная категоризация</h3>
-          <p>Гранаты отсортированы по типам и картам для быстрого поиска</p>
+          <h3 data-translate="about_feature2_title">Удобная категоризация</h3>
+          <p data-translate="about_feature2_desc">Гранаты отсортированы по типам и картам для быстрого поиска</p>
         </div>
         
         <div class="feature">
           <i class="fas fa-map-marked-alt"></i>
-          <h3>Все карты CS2</h3>
-          <p>Гранаты для всех официальных и карт</p>
+          <h3 data-translate="about_feature3_title">Все карты CS2</h3>
+          <p data-translate="about_feature3_desc">Гранаты для всех официальных и карт</p>
         </div>
         
         <div class="feature">
           <i class="fas fa-rocket"></i>
-          <h3>Актуальные стратегии</h3>
-          <p>Мы регулярно обновляем коллекцию под текущую мету игры</p>
+          <h3 data-translate="about_feature4_title">Актуальные стратегии</h3>
+          <p data-translate="about_feature4_desc">Мы регулярно обновляем коллекцию под текущую мету игры</p>
         </div>
       </div>
     </div>
@@ -1443,7 +1466,7 @@
     <div class="footer-content">
       <div class="logo">
         <i class="fas fa-bomb"></i>
-        <span>NadeSpot</span>
+        <span data-translate="logo">NadeSpot</span>
       </div>
       
       <div class="social-links">
@@ -1451,12 +1474,371 @@
         <a href="#"><i class="fab fa-discord"></i></a>
       </div>
       
-      <p class="copyright">NadeSpot © 2025 - Все права защищены</p>
-      <p class="copyright">Это демонстрационный сайт, созданный в образовательных целях</p>
+      <p class="copyright" data-translate="footer_copyright">NadeSpot © 2025 - Все права защищены</p>
+      <p class="copyright" data-translate="footer_demo">Это демонстрационный сайт, созданный в образовательных целях</p>
     </div>
   </footer>
 
   <script>
+    // База переводов
+    const translations = {
+      "ru": {
+        "logo": "NadeSpot",
+        "nav_home": "Главная",
+        "nav_videos": "Видео",
+        "nav_collections": "Коллекции",
+        "nav_upload": "Загрузить",
+        "nav_admin": "Управление",
+        "nav_about": "О сайте",
+        "hero_title": "Лучшие гранаты в CS2",
+        "hero_text": "Изучайте, практикуйте и совершенствуйте свои навыки владения гранатами",
+        "hero_btn_watch": "Смотреть гранаты",
+        "hero_btn_upload": "Загрузить видео",
+        "videos_title": "Популярные гранаты",
+        "search_placeholder": "Поиск по названию, карте или описанию...",
+        "filter_category": "Категория",
+        "filter_all": "Все",
+        "filter_smoke": "Дымовые",
+        "filter_flash": "Светошумовые",
+        "filter_molotov": "Зажигательные",
+        "filter_he": "Осколочные",
+        "filter_map": "Карта",
+        "filter_side": "Сторона",
+        "filter_both": "Обе стороны",
+        "filter_ct": "Контр-террористы",
+        "filter_t": "Террористы",
+        "filter_sort": "Сортировка",
+        "sort_newest": "Сначала новые",
+        "sort_oldest": "Сначала старые",
+        "sort_popular": "По популярности",
+        "sort_rating": "По рейтингу",
+        "collections_title": "Мои коллекции",
+        "collections_create": "Создать коллекцию",
+        "collections_favorites": "Избранное",
+        "favorites_title": "Избранные гранаты",
+        "upload_title": "Загрузить видео",
+        "upload_type_file": "Файл видео",
+        "upload_type_youtube": "YouTube ссылка",
+        "upload_drag": "Перетащите видеофайл сюда или",
+        "upload_select": "Выбрать файл",
+        "upload_youtube_label": "Ссылка на YouTube видео",
+        "upload_youtube_placeholder": "https://www.youtube.com/watch?v=...",
+        "upload_title_label": "Название видео",
+        "upload_title_placeholder": "Введите название видео",
+        "upload_category_label": "Категория гранаты",
+        "upload_category_select": "Выберите категорию",
+        "upload_map_label": "Карта",
+        "upload_map_placeholder": "Например: Mirage, Dust2",
+        "upload_side_label": "Сторона",
+        "upload_side_select": "Выберите сторону",
+        "upload_difficulty_label": "Сложность",
+        "upload_difficulty_select": "Выберите сложность",
+        "upload_difficulty_easy": "Легкая",
+        "upload_difficulty_medium": "Средняя",
+        "upload_difficulty_hard": "Сложная",
+        "upload_description_label": "Описание",
+        "upload_description_placeholder": "Опишите свой заброс",
+        "upload_btn": "Загрузить видео",
+        "admin_title": "Управление видео",
+        "admin_description": "Здесь вы можете управлять загруженными видео. Для удаления видео нажмите на кнопку \"Удалить\".",
+        "view3d_title": "3D Просмотр траектории",
+        "view3d_help": "Используйте мышь для вращения и колесо для масштабирования",
+        "view3d_top": "Вид сверху",
+        "view3d_side": "Вид сбоку",
+        "view3d_first": "От первого лица",
+        "view3d_example_title": "Траектория дымовой гранаты на Мираж",
+        "view3d_example_meta": "Дымовая граната • Mirage",
+        "view3d_example_side": "CT сторона",
+        "view3d_example_desc": "Заброс из spawn точки CT в окно на середину карты. Позволяет заблокировать обзор противнику в начале раунда.",
+        "view3d_accuracy": "Точность: 95%",
+        "view3d_time": "Время полета: 3.2с",
+        "confirm_title": "Подтверждение удаления",
+        "confirm_message": "Вы уверены, что хотите удалить эту коллекцию? Это действие нельзя отменить.",
+        "confirm_yes": "Да, удалить",
+        "confirm_no": "Отмена",
+        "about_title": "О сайте",
+        "about_text1": "NadeSpot — это платформа для изучения и применениями гранат в Counter-Strike 2. Наша цель — помочь игрокам улучшить свои навыки и тактическое мышление.",
+        "about_text2": "Здесь вы найдете тщательно отобранные видео с эффективными применениями гранат на всех популярных картах. Наша команда модераторов проверяет каждый материал перед публикацией.",
+        "about_feature1_title": "Качественный контент",
+        "about_feature1_desc": "Все видео проверяются на эффективность и актуальность",
+        "about_feature2_title": "Удобная категоризация",
+        "about_feature2_desc": "Гранаты отсортированы по типам и картам для быстрого поиска",
+        "about_feature3_title": "Все карты CS2",
+        "about_feature3_desc": "Гранаты для всех официальных и карт",
+        "about_feature4_title": "Актуальные стратегии",
+        "about_feature4_desc": "Мы регулярно обновляем коллекцию под текущую мету игры",
+        "footer_copyright": "NadeSpot © 2025 - Все права защищены",
+        "footer_demo": "Это демонстрационный сайт, созданный в образовательных целях",
+        "notification_success": "Операция выполнена успешно!",
+        "notification_error": "Произошла ошибка!",
+        "notification_info": "Информация",
+        "no_videos": "Видео не найдены",
+        "no_videos_text": "Будьте первым, кто загрузит видео с гранатой!",
+        "no_favorites": "Нет избранных видео",
+        "no_favorites_text": "Добавляйте видео в избранное, чтобы легко находить их позже",
+        "no_collections": "Коллекций пока нет",
+        "no_collections_text": "Создайте свою первую коллекцию для организации видео"
+      },
+      "uk": {
+        "logo": "NadeSpot",
+        "nav_home": "Головна",
+        "nav_videos": "Відео",
+        "nav_collections": "Колекції",
+        "nav_upload": "Завантажити",
+        "nav_admin": "Управління",
+        "nav_about": "Про сайт",
+        "hero_title": "Найкращі гранати в CS2",
+        "hero_text": "Вивчайте, практикуйте та вдосконалюйте свої навички володіння гранатами",
+        "hero_btn_watch": "Дивитися гранати",
+        "hero_btn_upload": "Завантажити відео",
+        "videos_title": "Популярні гранати",
+        "search_placeholder": "Пошук за назвою, картою або описом...",
+        "filter_category": "Категорія",
+        "filter_all": "Всі",
+        "filter_smoke": "Димові",
+        "filter_flash": "Світлошумові",
+        "filter_molotov": "Запалювальні",
+        "filter_he": "Осколкові",
+        "filter_map": "Карта",
+        "filter_side": "Сторона",
+        "filter_both": "Обідві сторони",
+        "filter_ct": "Контр-терористи",
+        "filter_t": "Терористи",
+        "filter_sort": "Сортування",
+        "sort_newest": "Спочатку нові",
+        "sort_oldest": "Спочатку старі",
+        "sort_popular": "За популярністю",
+        "sort_rating": "За рейтингом",
+        "collections_title": "Мої колекції",
+        "collections_create": "Створити колекцію",
+        "collections_favorites": "Обране",
+        "favorites_title": "Обрані гранати",
+        "upload_title": "Завантажити відео",
+        "upload_type_file": "Файл відео",
+        "upload_type_youtube": "YouTube посилання",
+        "upload_drag": "Перетягніть відеофайл сюди або",
+        "upload_select": "Вибрати файл",
+        "upload_youtube_label": "Посилання на YouTube відео",
+        "upload_youtube_placeholder": "https://www.youtube.com/watch?v=...",
+        "upload_title_label": "Назва відео",
+        "upload_title_placeholder": "Введіть назву відео",
+        "upload_category_label": "Категорія гранати",
+        "upload_category_select": "Виберіть категорію",
+        "upload_map_label": "Карта",
+        "upload_map_placeholder": "Наприклад: Mirage, Dust2",
+        "upload_side_label": "Сторона",
+        "upload_side_select": "Виберіть сторону",
+        "upload_difficulty_label": "Складність",
+        "upload_difficulty_select": "Виберіть складність",
+        "upload_difficulty_easy": "Легка",
+        "upload_difficulty_medium": "Середня",
+        "upload_difficulty_hard": "Складна",
+        "upload_description_label": "Опис",
+        "upload_description_placeholder": "Опишіть свій кидок",
+        "upload_btn": "Завантажити відео",
+        "admin_title": "Управління відео",
+        "admin_description": "Тут ви можете керувати завантаженими відео. Для видалення відео натисніть кнопку \"Видалити\".",
+        "view3d_title": "3D Перегляд траєкторії",
+        "view3d_help": "Використовуйте мишу для обертання та колесо для масштабування",
+        "view3d_top": "Вид зверху",
+        "view3d_side": "Вид збоку",
+        "view3d_first": "Від першої особи",
+        "view3d_example_title": "Траєкторія димової гранати на Міраж",
+        "view3d_example_meta": "Димова граната • Mirage",
+        "view3d_example_side": "CT сторона",
+        "view3d_example_desc": "Кидок з spawn точки CT у вікно на середину карти. Дозволяє заблокувати огляд противнику на початку раунду.",
+        "view3d_accuracy": "Точність: 95%",
+        "view3d_time": "Час польоту: 3.2с",
+        "confirm_title": "Підтвердження видалення",
+        "confirm_message": "Ви впевнені, що хочете видалити цю колекцію? Цю дію не можна скасувати.",
+        "confirm_yes": "Так, видалити",
+        "confirm_no": "Скасувати",
+        "about_title": "Про сайт",
+        "about_text1": "NadeSpot — це платформа для вивчення та застосування гранат у Counter-Strike 2. Наша мета — допомогти гравцям покращити свої навички та тактичне мислення.",
+        "about_text2": "Тут ви знайдете ретельно відібрані відео з ефективними застосуваннями гранат на всіх популярних картах. Наша команда модераторів перевіряє кожен матеріал перед публікацією.",
+        "about_feature1_title": "Якісний контент",
+        "about_feature1_desc": "Усі відео перевіряються на ефективність та актуальність",
+        "about_feature2_title": "Зручна категорізація",
+        "about_feature2_desc": "Гранати відсортовані за типами та картами для швидкого пошуку",
+        "about_feature3_title": "Усі карти CS2",
+        "about_feature3_desc": "Гранати для всіх офіційних карт",
+        "about_feature4_title": "Актуальні стратегії",
+        "about_feature4_desc": "Ми регулярно оновлюємо колекцію під поточну мету гри",
+        "footer_copyright": "NadeSpot © 2025 - Всі права захищені",
+        "footer_demo": "Це демонстраційний сайт, створений в освітніх цілях",
+        "notification_success": "Операція успішно виконана!",
+        "notification_error": "Сталася помилка!",
+        "notification_info": "Інформація",
+        "no_videos": "Відео не знайдено",
+        "no_videos_text": "Будьте першим, хто завантажить відео з гранатою!",
+        "no_favorites": "Немає обраних відео",
+        "no_favorites_text": "Додавайте відео в обране, щоб легко знаходити їх пізніше",
+        "no_collections": "Колекцій поки немає",
+        "no_collections_text": "Створіть свою першу колекцію для організації відео"
+      },
+      "en": {
+        "logo": "NadeSpot",
+        "nav_home": "Home",
+        "nav_videos": "Videos",
+        "nav_collections": "Collections",
+        "nav_upload": "Upload",
+        "nav_admin": "Management",
+        "nav_about": "About",
+        "hero_title": "Best grenades in CS2",
+        "hero_text": "Study, practice and improve your grenade skills",
+        "hero_btn_watch": "Watch grenades",
+        "hero_btn_upload": "Upload video",
+        "videos_title": "Popular grenades",
+        "search_placeholder": "Search by name, map or description...",
+        "filter_category": "Category",
+        "filter_all": "All",
+        "filter_smoke": "Smoke",
+        "filter_flash": "Flash",
+        "filter_molotov": "Molotov",
+        "filter_he": "HE Grenade",
+        "filter_map": "Map",
+        "filter_side": "Side",
+        "filter_both": "Both sides",
+        "filter_ct": "Counter-Terrorists",
+        "filter_t": "Terrorists",
+        "filter_sort": "Sort by",
+        "sort_newest": "Newest first",
+        "sort_oldest": "Oldest first",
+        "sort_popular": "By popularity",
+        "sort_rating": "By rating",
+        "collections_title": "My collections",
+        "collections_create": "Create collection",
+        "collections_favorites": "Favorites",
+        "favorites_title": "Favorite grenades",
+        "upload_title": "Upload video",
+        "upload_type_file": "Video file",
+        "upload_type_youtube": "YouTube link",
+        "upload_drag": "Drag video file here or",
+        "upload_select": "Select file",
+        "upload_youtube_label": "YouTube video link",
+        "upload_youtube_placeholder": "https://www.youtube.com/watch?v=...",
+        "upload_title_label": "Video title",
+        "upload_title_placeholder": "Enter video title",
+        "upload_category_label": "Grenade category",
+        "upload_category_select": "Select category",
+        "upload_map_label": "Map",
+        "upload_map_placeholder": "For example: Mirage, Dust2",
+        "upload_side_label": "Side",
+        "upload_side_select": "Select side",
+        "upload_difficulty_label": "Difficulty",
+        "upload_difficulty_select": "Select difficulty",
+        "upload_difficulty_easy": "Easy",
+        "upload_difficulty_medium": "Medium",
+        "upload_difficulty_hard": "Hard",
+        "upload_description_label": "Description",
+        "upload_description_placeholder": "Describe your throw",
+        "upload_btn": "Upload video",
+        "admin_title": "Video management",
+        "admin_description": "Here you can manage uploaded videos. To delete a video, click the \"Delete\" button.",
+        "view3d_title": "3D Trajectory View",
+        "view3d_help": "Use the mouse to rotate and the wheel to zoom",
+        "view3d_top": "Top view",
+        "view3d_side": "Side view",
+        "view3d_first": "First person",
+        "view3d_example_title": "Smoke grenade trajectory on Mirage",
+        "view3d_example_meta": "Smoke grenade • Mirage",
+        "view3d_example_side": "CT side",
+        "view3d_example_desc": "Throw from CT spawn to window at mid. Allows to block enemy vision at the beginning of the round.",
+        "view3d_accuracy": "Accuracy: 95%",
+        "view3d_time": "Flight time: 3.2s",
+        "confirm_title": "Delete confirmation",
+        "confirm_message": "Are you sure you want to delete this collection? This action cannot be undone.",
+        "confirm_yes": "Yes, delete",
+        "confirm_no": "Cancel",
+        "about_title": "About",
+        "about_text1": "NadeSpot is a platform for learning and using grenades in Counter-Strike 2. Our goal is to help players improve their skills and tactical thinking.",
+        "about_text2": "Here you will find carefully selected videos with effective grenade uses on all popular maps. Our team of moderators checks each material before publication.",
+        "about_feature1_title": "Quality content",
+        "about_feature1_desc": "All videos are checked for effectiveness and relevance",
+        "about_feature2_title": "Convenient categorization",
+        "about_feature2_desc": "Grenades are sorted by types and maps for quick search",
+        "about_feature3_title": "All CS2 maps",
+        "about_feature3_desc": "Grenades for all official maps",
+        "about_feature4_title": "Relevant strategies",
+        "about_feature4_desc": "We regularly update the collection for the current game meta",
+        "footer_copyright": "NadeSpot © 2025 - All rights reserved",
+        "footer_demo": "This is a demo site created for educational purposes",
+        "notification_success": "Operation completed successfully!",
+        "notification_error": "An error has occurred!",
+        "notification_info": "Information",
+        "no_videos": "No videos found",
+        "no_videos_text": "Be the first to upload a grenade video!",
+        "no_favorites": "No favorite videos",
+        "no_favorites_text": "Add videos to favorites to easily find them later",
+        "no_collections": "No collections yet",
+        "no_collections_text": "Create your first collection to organize videos"
+      }
+    };
+
+    // Функция для применения перевода
+    function applyLanguage(lang) {
+      // Обновляем атрибут lang у элемента html
+      document.documentElement.lang = lang;
+      
+      // Находим все элементы с атрибутом data-translate
+      const elements = document.querySelectorAll('[data-translate]');
+      
+      // Применяем перевод к каждому элементу
+      elements.forEach(element => {
+        const key = element.getAttribute('data-translate');
+        if (translations[lang] && translations[lang][key]) {
+          element.textContent = translations[lang][key];
+        }
+      });
+      
+      // Обновляем все placeholder'ы
+      const placeholders = document.querySelectorAll('[data-placeholder]');
+      placeholders.forEach(element => {
+        const key = element.getAttribute('data-placeholder');
+        if (translations[lang] && translations[lang][key]) {
+          element.setAttribute('placeholder', translations[lang][key]);
+        }
+      });
+      
+      // Обновляем активную кнопку языка
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        if (btn.getAttribute('data-lang') === lang) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+      
+      // Сохраняем выбранный язык в localStorage
+      localStorage.setItem('preferredLanguage', lang);
+    }
+
+    // Обработчики событий для кнопок переключения языка
+    document.querySelectorAll('.lang-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const lang = this.getAttribute('data-lang');
+        applyLanguage(lang);
+      });
+    });
+
+    // При загрузке страницы пытаемся использовать сохраненный язык или язык браузера
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedLanguage = localStorage.getItem('preferredLanguage');
+      const browserLanguage = navigator.language.substring(0, 2);
+      
+      if (savedLanguage) {
+        applyLanguage(savedLanguage);
+      } else if (browserLanguage in translations) {
+        applyLanguage(browserLanguage);
+      } else {
+        applyLanguage('ru'); // Язык по умолчанию
+      }
+      
+      // Инициализация остального функционала
+      renderVideos();
+      renderCollections();
+    });
+
     // Хранилище для видео
     let videos = JSON.parse(localStorage.getItem('nadespot_videos')) || [];
     let collections = JSON.parse(localStorage.getItem('nadespot_collections')) || [];
@@ -1700,11 +2082,12 @@
       videoContainer.innerHTML = '';
       
       if (videos.length === 0) {
+        const lang = document.documentElement.lang || 'ru';
         videoContainer.innerHTML = `
           <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
             <i class="fas fa-video-slash" style="font-size: 50px; color: #555; margin-bottom: 15px;"></i>
-            <h3>Видео не найдены</h3>
-            <p>Будьте первым, кто загрузит видео с гранатой!</p>
+            <h3>${translations[lang]['no_videos']}</h3>
+            <p>${translations[lang]['no_videos_text']}</p>
           </div>
         `;
         return;
@@ -1862,11 +2245,12 @@
       favoritesContainer.innerHTML = '';
       
       if (favorites.length === 0) {
+        const lang = document.documentElement.lang || 'ru';
         favoritesContainer.innerHTML = `
           <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
             <i class="far fa-star" style="font-size: 50px; color: #555; margin-bottom: 15px;"></i>
-            <h3>Нет избранных видео</h3>
-            <p>Добавляйте видео в избранное, чтобы легко находить их позже</p>
+            <h3>${translations[lang]['no_favorites']}</h3>
+            <p>${translations[lang]['no_favorites_text']}</p>
           </div>
         `;
         return;
@@ -1931,7 +2315,8 @@
     
     // Создание новой коллекции
     function createNewCollection() {
-      const name = prompt('Введите название коллекции:');
+      const lang = document.documentElement.lang || 'ru';
+      const name = prompt(translations[lang]['upload_title_placeholder']);
       if (!name) return;
       
       const newCollection = {
@@ -1982,11 +2367,12 @@
       collectionsContainer.innerHTML = '';
       
       if (collections.length === 0) {
+        const lang = document.documentElement.lang || 'ru';
         collectionsContainer.innerHTML = `
           <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
             <i class="far fa-folder-open" style="font-size: 50px; color: #555; margin-bottom: 15px;"></i>
-            <h3>Коллекций пока нет</h3>
-            <p>Создайте свою первую коллекцию для организации видео</p>
+            <h3>${translations[lang]['no_collections']}</h3>
+            <p>${translations[lang]['no_collections_text']}</p>
           </div>
         `;
         return;
@@ -2087,11 +2473,12 @@
       adminList.innerHTML = '';
       
       if (videos.length === 0) {
+        const lang = document.documentElement.lang || 'ru';
         adminList.innerHTML = `
           <div style="text-align: center; padding: 40px;">
             <i class="fas fa-video-slash" style="font-size: 50px; color: #555; margin-bottom: 15px;"></i>
-            <h3>Видео не найдены</h3>
-            <p>Загрузите первое видео, чтобы управлять им здесь</p>
+            <h3>${translations[lang]['no_videos']}</h3>
+            <p>${translations[lang]['no_videos_text']}</p>
           </div>
         `;
         return;
@@ -2290,14 +2677,6 @@
       renderCollections();
       showNotification('Коллекция успешно удалена');
     }
-    
-    // Инициализация при загрузке
-    document.addEventListener('DOMContentLoaded', function() {
-      renderVideos();
-      renderCollections();
-    });
   </script>
 </body>
-
 </html>
-
