@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NadeSpot - Лучшие гранаты CS2</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+
+  <!-- Навигация -->
+  <nav>
+    <div class="nav-container">
+      <a href="#" class="logo" onclick="showSection('home'); return false;">
+        <i class="fas fa-bomb"></i>
+        <span data-translate="logo">NadeSpot</span>
+      </a>
+      
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#" class="active" onclick="showSection('home'); return false;" data-translate="nav_home">Главная</a></li>
+        <li><a href="#" onclick="showSection('videos'); return false;" data-translate="nav_videos">Видео</a></li>
+        <li><a href="#" onclick="showSection('collections'); return false;" data-translate="nav_collections">Коллекции</a></li>
+        <li><a href="#" onclick="showSection('upload'); return false;" data-translate="nav_upload">Загрузить</a></li>
+        <li><a href="#" onclick="showSection('admin'); return false;" data-translate="nav_admin">Управление</a></li>
+        <li><a href="#" onclick="showSection('about'); return false;" data-translate="nav_about">О сайте</a></li>
+        
+        <li>
+          <div class="language-switcher">
+            <button class="lang-btn active" data-lang="ru">RU</button>
+            <button class="lang-btn" data-lang="uk">UA</button>
+            <button class="lang-btn" data-lang="en">EN</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Уведомления -->
+  <div class="notification" id="notification"></div>
+
+  <!-- Главная -->
+  <section id="home" class="active">
+    <div class="hero">
+      <div class="hero-content">
+        <h1 class="animate__animated animate__fadeInDown" data-translate="hero_title">Лучшие гранаты в CS2</h1>
+        <p class="animate__animated animate__fadeInUp" data-translate="hero_text">Изучайте, практикуйте и совершенствуйте свои навыки владения гранатами</p>
+        <div class="hero-buttons">
+          <a href="#" class="btn" onclick="showSection('videos'); return false;" data-translate="hero_btn_watch">Смотреть гранаты</a>
+          <a href="#" class="btn btn-outline" onclick="showSection('upload'); return false;" data-translate="hero_btn_upload">Загрузить видео</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Видео -->
+  <section id="videos">
+    <h2 class="section-title" data-translate="videos_title">Популярные гранаты</h2>
+    
+    <div class="search-filters">
+      <div class="search-box">
+        <input type="text" id="search-input" data-placeholder="search_placeholder" placeholder="Поиск по названию, карте или описанию...">
+        <button onclick="searchVideos()"><i class="fas fa-search"></i></button>
+      </div>
+      
+      <div class="advanced-filters">
+        <div class="filter-group">
+          <label for="filter-category" data-translate="filter_category">Категория</label>
+          <select id="filter-category" onchange="filterVideos()">
+            <option value="all" data-translate="filter_all">Все категории</option>
+            <option value="smoke" data-translate="filter_smoke">Дымовые</option>
+            <option value="flash" data-translate="filter_flash">Светошумовые</option>
+            <option value="molotov" data-translate="filter_molotov">Зажигательные</option>
+            <option value="he" data-translate="filter_he">Осколочные</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label for="filter-map" data-translate="filter_map">Карта</label>
+          <select id="filter-map" onchange="filterVideos()">
+            <option value="all" data-translate="filter_all">Все карты</option>
+            <option value="Mirage">Mirage</option>
+            <option value="Dust2">Dust II</option>
+            <option value="Inferno">Inferno</option>
+            <option value="Nuke">Nuke</option>
+            <option value="Overpass">Overpass</option>
+            <option value="Vertigo">Vertigo</option>
+            <option value="Ancient">Ancient</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label for="filter-side" data-translate="filter_side">Сторона</label>
+          <select id="filter-side" onchange="filterVideos()">
+            <option value="all" data-translate="filter_both">Обе стороны</option>
+            <option value="CT" data-translate="filter_ct">Контр-террористы</option>
+            <option value="T" data-translate="filter_t">Террористы</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label for="filter-sort" data-translate="filter_sort">Сортировка</label>
+          <select id="filter-sort" onchange="filterVideos()">
+            <option value="newest" data-translate="sort_newest">Сначала новые</option>
+            <option value="oldest" data-translate="sort_oldest">Сначала старые</option>
+            <option value="popular" data-translate="sort_popular">По популярности</option>
+            <option value="rating" data-translate="sort_rating">По рейтингу</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    
+    <div class="categories">
+      <button class="category-btn active" data-filter="all" data-translate="filter_all">Все</button>
+      <button class="category-btn" data-filter="smoke" data-translate="filter_smoke">Дымовые</button>
+      <button class="category-btn" data-filter="flash" data-translate="filter_flash">Светошумовые</button>
+      <button class="category-btn" data-filter="molotov" data-translate="filter_molotov">Зажигательные</button>
+      <button class="category-btn" data-filter="he" data-translate="filter_he">Осколочные</button>
+    </div>
+    
+    <div class="video-grid" id="video-container">
+      <!-- Видео будут добавляться динамически -->
+    </div>
+  </section>
+
+  <!-- Коллекции -->
+  <section id="collections">
+    <h2 class="section-title" data-translate="collections_title">Мои коллекции</h2>
+    
+    <div class="hero-buttons" style="justify-content: center; margin-bottom: 30px;">
+      <button class="btn" onclick="createNewCollection()">
+        <i class="fas fa-plus"></i> <span data-translate="collections_create">Создать коллекцию</span>
+      </button>
+      <button class="btn btn-info" onclick="showSection('favorites')">
+        <i class="fas fa-star"></i> <span data-translate="collections_favorites">Избранное</span>
+      </button>
+    </div>
+    
+    <div class="collections-container" id="collections-container">
+      <!-- Коллекции будут добавляться динамически -->
+    </div>
+  </section>
+
+  <!-- Избранное -->
+  <section id="favorites">
+    <h2 class="section-title" data-translate="favorites_title">Избранные гранаты</h2>
+    
+    <div class="video-grid" id="favorites-container">
+      <!-- Избранные видео будут добавляться динамически -->
+    </div>
+  </section>
+
+  <!-- Загрузка видео -->
+  <section id="upload">
+    <h2 class="section-title" data-translate="upload_title">Загрузить видео</h2>
+    
+    <div class="upload-form">
+      <div class="upload-types">
+        <button class="upload-type-btn active" data-type="file" data-translate="upload_type_file">Файл видео</button>
+        <button class="upload-type-btn" data-type="youtube" data-translate="upload_type_youtube">YouTube ссылка</button>
+      </div>
+      
+      <div id="file-upload-section">
+        <div class="file-upload" id="drop-zone">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <p data-translate="upload_drag">Перетащите видеофайл сюда или</p>
+          <label for="video-file" class="btn" data-translate="upload_select">Выбрать файл</label>
+          <input type="file" id="video-file" accept="video/*" style="display: none;">
+        </div>
+      </div>
+      
+      <div id="youtube-upload-section" style="display: none;">
+        <div class="form-group">
+          <label for="youtube-url" data-translate="upload_youtube_label">Ссылка на YouTube видео</label>
+          <input type="url" id="youtube-url" class="form-control" data-placeholder="upload_youtube_placeholder" placeholder="https://www.youtube.com/watch?v=...">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="video-title" data-translate="upload_title_label">Название видео</label>
+        <input type="text" id="video-title" class="form-control" data-placeholder="upload_title_placeholder" placeholder="Введите название видео">
+      </div>
+      
+      <div class="form-group">
+        <label for="video-category" data-translate="upload_category_label">Категория гранаты</label>
+        <select id="video-category" class="form-control">
+          <option value="" data-translate="upload_category_select">Выберите категорию</option>
+          <option value="smoke" data-translate="filter_smoke">Дымовая</option>
+          <option value="flash" data-translate="filter_flash">Светошумовая</option>
+          <option value="molotov" data-translate="filter_molotov">Зажигательная</option>
+          <option value="he" data-translate="filter_he">Осколочная</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="video-map" data-translate="upload_map_label">Карта</label>
+        <input type="text" id="video-map" class="form-control" data-placeholder="upload_map_placeholder" placeholder="Например: Mirage, Dust2">
+      </div>
+      
+      <div class="form-group">
+        <label for="video-side" data-translate="upload_side_label">Сторона</label>
+        <select id="video-side" class="form-control">
+          <option value="" data-translate="upload_side_select">Выберите сторону</option>
+          <option value="CT" data-translate="filter_ct">Контр-террористы</option>
+          <option value="T" data-translate="filter_t">Террористы</option>
+          <option value="both" data-translate="filter_both">Обе стороны</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="video-difficulty" data-translate="upload_difficulty_label">Сложность</label>
+        <select id="video-difficulty" class="form-control">
+          <option value="" data-translate="upload_difficulty_select">Выберите сложность</option>
+          <option value="easy" data-translate="upload_difficulty_easy">Легкая</option>
+          <option value="medium" data-translate="upload_difficulty_medium">Средняя</option>
+          <option value="hard" data-translate="upload_difficulty_hard">Сложная</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="video-description" data-translate="upload_description_label">Описание</label>
+        <textarea id="video-description" class="form-control" data-placeholder="upload_description_placeholder" placeholder="Опишите свой заброс"></textarea>
+      </div>
+      
+      <button class="btn" style="width: 100%;" onclick="uploadVideo()" data-translate="upload_btn">Загрузить видео</button>
+    </div>
+  </section>
+
+  <!-- Панель администратора -->
+  <section id="admin">
+    <h2 class="section-title" data-translate="admin_title">Управление видео</h2>
+    
+    <div class="admin-panel">
+      <p data-translate="admin_description">Здесь вы можете управлять загруженными видео. Для удаления видео нажмите на кнопку "Удалить".</p>
+      
+      <div class="admin-video-list" id="admin-video-list">
+        <!-- Список видео для управления -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 3D просмотр -->
+  <section id="view3d">
+    <h2 class="section-title" data-translate="view3d_title">3D Просмотр траектории</h2>
+    
+    <div class="viewer-3d" id="viewer-3d">
+      <div class="viewer-info">
+        <i class="fas fa-vr-cardboard"></i> <span data-translate="view3d_help">Используйте мышь для вращения и колесо для масштабирования</span>
+      </div>
+      <div class="viewer-controls">
+        <button onclick="changeView('top')"><i class="fas fa-download"></i> <span data-translate="view3d_top">Вид сверху</span></button>
+        <button onclick="changeView('side')"><i class="fas fa-arrows-alt-h"></i> <span data-translate="view3d_side">Вид сбоку</span></button>
+        <button onclick="changeView('first')"><i class="fas fa-eye"></i> <span data-translate="view3d_first">От первого лица</span></button>
+      </div>
+      <canvas id="nade-canvas" width="800" height="400"></canvas>
+    </div>
+    
+    <div class="video-info">
+      <h3 class="video-title" id="viewer-title" data-translate="view3d_example_title">Траектория дымовой гранаты на Мираж</h3>
+      <div class="video-meta">
+        <span data-translate="view3d_example_meta">Дымовая граната • Mirage</span>
+        <span data-translate="view3d_example_side">CT сторона</span>
+      </div>
+      <p data-translate="view3d_example_desc">Заброс из spawn точки CT в окно на середину карты. Позволяет заблокировать обзор противнику в начале раунда.</p>
+      <div class="video-stats">
+        <div class="video-stat">
+          <i class="fas fa-bullseye"></i>
+          <span data-translate="view3d_accuracy">Точность: 95%</span>
+        </div>
+        <div class="video-stat">
+          <i class="fas fa-clock"></i>
+          <span data-translate="view3d_time">Время полета: 3.2с</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Модальное окно видео -->
+  <div class="video-modal" id="video-modal">
+    <div class="modal-content">
+      <div class="modal-close" onclick="closeVideo()">
+        <i class="fas fa-times"></i>
+      </div>
+      <div class="modal-video-container" id="modal-video-container">
+        <!-- Видео будет вставлено сюда -->
+      </div>
+      <div class="modal-body">
+        <h3 class="modal-title" id="modal-title"></h3>
+        <div class="modal-meta">
+          <span id="modal-category"></span>
+          <span id="modal-date"></span>
+        </div>
+        <p class="modal-description" id="modal-description"></p>
+        <div class="modal-stats">
+          <div class="video-stat">
+            <i class="far fa-eye"></i>
+            <span id="modal-views">0</span>
+          </div>
+          <div class="video-stat">
+            <i class="far fa-thumbs-up"></i>
+            <span id="modal-likes">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модальное окно подтверждения удаления -->
+  <div class="confirm-modal" id="confirm-modal">
+    <div class="confirm-content">
+      <h3 id="confirm-title" data-translate="confirm_title">Подтверждение удаления</h3>
+      <p id="confirm-message" data-translate="confirm_message">Вы уверены, что хотите удалить эту коллекцию? Это действие нельзя отменить.</p>
+      <div class="confirm-buttons">
+        <button class="btn btn-danger" id="confirm-yes" data-translate="confirm_yes">Да, удалить</button>
+        <button class="btn" id="confirm-no" data-translate="confirm_no">Отмена</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- О сайте -->
+  <section id="about">
+    <h2 class="section-title" data-translate="about_title">О сайте</h2>
+    
+    <div class="about-content">
+      <p data-translate="about_text1">
+        NadeSpot — это платформа для изучения и применениями гранат в Counter-Strike 2. 
+        Наша цель — помочь игрокам улучшить свои навыки и тактическое мышление.
+      </p>
+      
+      <p data-translate="about_text2">
+        Здесь вы найдете тщательно отобранные видео с эффективными применениями гранат на всех популярных картах. 
+        Наша команда модераторов проверяет каждый материал перед публикацией.
+      </p>
+      
+      <div class="features">
+        <div class="feature">
+          <i class="fas fa-filter"></i>
+          <h3 data-translate="about_feature1_title">Качественный контент</h3>
+          <p data-translate="about_feature1_desc">Все видео проверяются на эффективность и актуальность</p>
+        </div>
+        
+        <div class="feature">
+          <i class="fas fa-sort-amount-down"></i>
+          <h3 data-translate="about_feature2_title">Удобная категоризация</h3>
+          <p data-translate="about_feature2_desc">Гранаты отсортированы по типам и картам для быстрого поиска</p>
+        </div>
+        
+        <div class="feature">
+          <i class="fas fa-map-marked-alt"></i>
+          <h3 data-translate="about_feature3_title">Все карты CS2</h3>
+          <p data-translate="about_feature3_desc">Гранаты для всех официальных и карт</p>
+        </div>
+        
+        <div class="feature">
+          <i class="fas fa-rocket"></i>
+          <h3 data-translate="about_feature4_title">Актуальные стратегии</h3>
+          <p data-translate="about_feature4_desc">Мы регулярно обновляем коллекцию под текущую мету игры</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Футер -->
+  <footer>
+    <div class="footer-content">
+      <div class="logo">
+        <i class="fas fa-bomb"></i>
+        <span data-translate="logo">NadeSpot</span>
+      </div>
+      
+      <div class="social-links">
+        <a href="#"><i class="fab fa-youtube"></i></a>
+        <a href="#"><i class="fab fa-discord"></i></a>
+      </div>
+      
+      <p class="copyright" data-translate="footer_copyright">NadeSpot © 2025 - Все права защищены</p>
+      <p class="copyright" data-translate="footer_demo">Это демонстрационный сайт, созданный в образовательных целях</p>
+    </div>
+  </footer>
+
+  <script>
+    // База переводов
+    const translations = {
+      "ru": {
+        "logo": "NadeSpot",
+        "nav_home": "Главная",
+        "nav_videos": "Видео",
+        "nav_collections": "Коллекции",
+        "nav_upload": "Загрузить",
+        "nav_admin": "Управление",
+        "nav_about": "О сайте",
+        "hero_title": "Лучшие гранаты в CS2",
+        "hero_text": "Изучайте, практикуйте и совершенствуйте свои навыки владения гранатами",
+        "hero_btn_watch": "Смотреть гранаты",
+        "hero_btn_upload": "Загрузить видео",
+        "videos_title": "Популярные гранаты",
+        "search_placeholder": "Поиск по названию, карте или описанию...",
+        "filter_category": "Категория",
+        "filter_all": "Все",
+        "filter_smoke": "Дымовые",
+        "filter_flash": "Светошумовые",
+        "filter_molotov": "Зажигательные",
+        "filter_he": "Осколочные",
+        "filter_map": "Карта",
+        "filter_side": "Сторона",
+        "filter_both": "Обе стороны",
+        "filter_ct": "Контр-террористы",
+        "filter_t": "Террористы",
+        "filter_sort": "Сортировка",
+        "sort_newest": "Сначала новые",
+        "sort_oldest": "Сначала старые",
+        "sort_popular": "По популярности",
+        "sort_rating": "По рейтингу",
+        "collections_title": "Мои коллекции",
+        "collections_create": "Создать коллекцию",
+        "collections_favorites": "Избранное",
+        "favorites_title": "Избранные гранаты",
+        "upload_title": "Загрузить видео",
+        "upload_type_file": "Файл видео",
+        "upload_type_youtube": "YouTube ссылка",
+        "upload_drag": "Перетащите видеофайл сюда или",
+        "upload_select": "Выбрать файл",
+        "upload_youtube_label": "Ссылка на YouTube видео",
+        "upload_youtube_placeholder": "https://www.youtube.com/watch?v=...",
+        "upload_title_label": "Название видео",
+        "upload_title_placeholder": "Введите название видео",
+        "upload_category_label": "Категория гранаты",
+        "upload_category_select": "Выберите категорию",
+        "upload_map_label": "Карта",
+        "upload_map_placeholder": "Например: Mirage, Dust2",
+        "upload_side_label": "Сторона",
+        "upload_side_select": "Выберите сторону",
+        "upload_difficulty_label": "Сложность",
+        "upload_difficulty_select": "Выберите сложность",
+        "upload_difficulty_easy": "Легкая",
+        "upload_difficulty_medium": "Средняя",
+        "upload_difficulty_hard": "Сложная",
+        "upload_description_label": "Описание",
+        "upload_description_placeholder": "Опишите свой заброс",
+        "upload_btn": "Загрузить видео",
+        "admin_title": "Управление видео",
+        "admin_description": "Здесь вы можете управлять загруженными видео. Для удаления видео нажмите на кнопку \"Удалить\".",
+        "view3d_title": "3D Просмотр траектории",
+        "view3d_help": "Используйте мышь для вращения и колесо для масштабирования",
+        "view3d_top": "Вид сверху",
+        "view3d_side": "Вид сбоку",
+        "view3d_first": "От первого лица",
+        "view3d_example_title": "Траектория дымовой гранаты на Мираж",
+        "view3d_example_meta": "Дымовая граната • Mirage",
+        "view3d_example_side": "CT сторона",
+        "view3d_example_desc": "Заброс из spawn точки CT в окно на середину карты. Позволяет заблокировать обзор противнику в начале раунда.",
+        "view3d_accuracy": "Точность: 95%",
+        "view3d_time": "Время полета: 3.2с",
+        "confirm_title": "Подтверждение удаления",
+        "confirm_message": "Вы уверены, что хотите удалить эту коллекцию? Это действие нельзя отменить.",
+        "confirm_yes": "Да, удалить",
+        "confirm_no": "Отмена",
+        "about_title": "О сайте",
+        "about_text1": "NadeSpot — это платформа для изучения и применениями гранат в Counter-Strike 2. Наша цель — помочь игрокам улучшить свои навыки и тактическое мышление.",
+        "about_text2": "Здесь вы найдете тщательно отобранные видео с эффективными применениями гранат на всех популярных картах. Наша команда модераторов проверяет каждый материал перед публикацией.",
+        "about_feature1_title": "Качественный контент",
+        "about_feature1_desc": "Все видео проверяются на эффективность и актуальность",
+        "about_feature2_title": "Удобная категоризация",
+        "about_feature2_desc": "Гранаты отсортированы по типам и картам для быстрого поиска",
+        "about_feature3_title": "Все карты CS2",
+        "about_feature3_desc": "Гранаты для всех официальных и карт",
+        "about_feature4_title": "Актуальные стратегии",
+        "about_feature4_desc": "Мы регулярно обновляем коллекцию под текущую мету игры",
+        "footer_copyright": "NadeSpot © 2025 - Все права защищены",
+        "footer_demo": "Это демонстрационный сайт, созданный в образовательных целях",
+        "notification_success": "Операция выполнена успешно!",
+        "notification_error": "Произошла ошибка!",
+        "notification_info": "Информация",
+        "no_videos": "Видео не найдены",
+        "no_videos_text": "Будьте первым, кто загрузит видео с гранатой!",
+        "no_favorites": "Нет избранных видео",
+        "no_favorites_text": "Добавляйте видео в избранное, чтобы легко находить их позже",
+        "no_collections": "Коллекций пока нет",
+        "no_collections_text": "Создайте свою первую коллекцию для организации видео"
+      },
+      "uk": {
+        "logo": "NadeSpot",
+        "nav_home": "Головна",
+        "nav_videos": "Відео",
+        "nav_collections": "Колекції",
+        "nav_upload": "Завантажити",
+        "nav_admin": "Управління",
+        "nav_about": "Про сайт",
+        "hero_title": "Найкращі гранати в CS2",
+        "hero_text": "Вивчайте, практикуйте та вдосконалюйте свої навички володіння гранатами",
+        "hero_btn_watch": "Дивитися гранати",
+        "hero_btn_upload": "Завантажити відео",
+        "videos_title": "Популярні гранати",
+        "search_placeholder": "Пошук за назвою, картою або описом...",
+        "filter_category": "Категорія",
+        "filter_all": "Всі",
+        "filter_smoke": "Димові",
+        "filter_flash": "Світлошумові",
+        "filter_molotov": "Запалювальні",
+        "filter_he": "Осколкові",
+        "filter_map": "Карта",
+        "filter_side": "Сторона",
+        "filter_both": "Обідві сторони",
+        "filter_ct": "Контр-терористи",
+        "filter_t": "Терористи",
+        "filter_sort": "Сортування",
+        "sort_newest": "Спочатку нові",
+        "sort_oldest": "Спочатку старі",
+        "sort_popular": "За популярністю",
+        "sort_rating": "За рейтингом",
+        "collections_title": "Мої колекції",
+        "collections_create": "Створити колекцію",
+        "collections_favorites": "Обране",
+        "favorites_title": "Обрані гранати",
+        "upload_title": "Завантажити відео",
+        "upload_type_file": "Файл відео",
+        "upload_type_youtube": "YouTube посилання",
+        "upload_drag": "Перетягніть відеофайл сюди або",
+        "upload_select": "Вибрати файл",
+        "upload_youtube_label": "Посилання на YouTube відео",
+        "upload_youtube_placeholder": "https://www.youtube.com/watch?v=...",
+        "upload_title_label": "Назва відео",
+        "upload_title_placeholder": "Введіть назву відео",
+        "upload_category_label": "Категорія гранати",
+        "upload_category_select": "Виберіть категорію",
+        "upload_map_label": "Карта",
+        "upload_map_placeholder": "Наприклад: Mirage, Dust2",
+        "upload_side_label": "Сторона",
+        "upload_side_select": "Виберіть сторону",
+        "upload_difficulty_label": "Складність",
+        "upload_difficulty_select": "Виберіть складність",
+        "upload_difficulty_easy": "Легка",
+        "upload_difficulty_medium": "Середня",
+        "upload_difficulty_hard": "Складна",
+        "upload_description_label": "Опис",
+        "upload_description_placeholder": "Опишіть свій кидок",
+        "upload_btn": "Завантажити відео",
+        "admin_title": "Управління відео",
+        "admin_description": "Тут ви можете керувати завантаженими відео. Для видалення відео натисніть кнопку \"Видалити\".",
+        "view3d_title": "3D Перегляд траєкторії",
+        "view3d_help": "Використовуйте мишу для обертання та колесо для масштабування",
+        "view3d_top": "Вид зверху",
+        "view3d_side": "Вид збоку",
+        "view3d_first": "Від першої особи",
+        "view3d_example_title": "Траєкторія димової гранати на Міраж",
+        "view3d_example_meta": "Димова граната • Mirage",
+        "view3d_example_side": "CT сторона",
+        "view3d_example_desc": "Кидок з spawn точки CT у вікно на середину карти. Дозволяє заблокувати огляд противнику на початку раунду.",
+        "view3d_accuracy": "Точність: 95%",
+        "view3d_time": "Час польоту: 3.2с",
+        "confirm_title": "Підтвердження видалення",
+        "confirm_message": "Ви впевнені, що хочете видалити цю колекцію? Цю дію не можна скасувати.",
+        "confirm_yes": "Так, видалити",
+        "confirm_no": "Скасувати",
+        "about_title": "Про сайт",
+        "about_text1": "NadeSpot — це платформа для вивчення та застосування гранат у Counter-Strike 2. Наша мета — допомогти гравцям покращити свої навички та тактичне мислення.",
+        "about_text2": "Тут ви знайдете ретельно відібрані відео з ефективними застосуваннями гранат на всіх популярних картах. Наша команда модераторів перевіряє кожен матеріал перед публікацією.",
+        "about_feature1_title": "Якісний контент",
+        "about_feature1_desc": "Усі відео перевіряються на ефективність та актуальність",
+        "about_feature2_title": "Зручна категорізація",
+        "about_feature2_desc": "Гранати відсортовані за типами та картами для швидкого пошуку",
+        "about_feature3_title": "Усі карти CS2",
+        "about_feature3_desc": "Гранати для всіх офіційних карт",
+        "about_feature4_title": "Актуальні стратегії",
+        "about_feature4_desc": "Ми регулярно оновлюємо колекцію під поточну мету гри",
+        "footer_copyright": "NadeSpot © 2025 - Всі права захищені",
+        "footer_demo": "Це демонстраційний сайт, створений в освітніх цілях",
+        "notification_success": "Операція успішно виконана!",
+        "notification_error": "Сталася помилка!",
+        "notification_info": "Інформація",
+        "no_videos": "Відео не знайдено",
+        "no_videos_text": "Будьте першим, хто завантажить відео з гранатою!",
+        "no_favorites": "Немає обраних відео",
+        "no_favorites_text": "Додавайте відео в обране, щоб легко знаходити їх пізніше",
+        "no_collections": "Колекцій поки немає",
+        "no_collections_text": "Створіть свою першу колекцію для організації відео"
+      },
+      "en": {
+        "logo": "NadeSpot",
+        "nav_home": "Home",
+        "nav_videos": "Videos",
+        "nav_collections": "Collections",
+        "nav_upload": "Upload",
+        "nav_admin": "Management",
+        "nav_about": "About",
+        "hero_title": "Best grenades in CS2",
+        "hero_text": "Study, practice and improve your grenade skills",
+        "hero_btn_watch": "Watch grenades",
+        "hero_btn_upload": "Upload video",
+        "videos_title": "Popular grenades",
+        "search_placeholder": "Search by name, map or description...",
+        "filter_category": "Category",
+        "filter_all": "All",
+        "filter_smoke": "Smoke",
+        "filter_flash": "Flash",
+        "filter_molotov": "Molotov",
+        "filter_he": "HE Grenade",
+        "filter_map": "Map",
+        "filter_side": "Side",
+        "filter_both": "Both sides",
+        "filter_ct": "Counter-Terrorists",
+        "filter_t": "Terrorists",
+        "filter_sort": "Sort by",
+        "sort_newest": "Newest first",
+        "sort_oldest": "Oldest first",
+        "sort_popular": "By popularity",
+        "sort_rating": "By rating",
+        "collections_title": "My collections",
+        "collections_create": "Create collection",
+        "collections_favorites": "Favorites",
+        "favorites_title": "Favorite grenades",
+        "upload_title": "Upload video",
+        "upload_type_file": "Video file",
+        "upload_type_youtube": "YouTube link",
+        "upload_drag": "Drag video file here or",
+        "upload_select": "Select file",
+        "upload_youtube_label": "YouTube video link",
+        "upload_youtube_placeholder": "https://www.youtube.com/watch?v=...",
+        "upload_title_label": "Video title",
+        "upload_title_placeholder": "Enter video title",
+        "upload_category_label": "Grenade category",
+        "upload_category_select": "Select category",
+        "upload_map_label": "Map",
+        "upload_map_placeholder": "For example: Mirage, Dust2",
+        "upload_side_label": "Side",
+        "upload_side_select": "Select side",
+        "upload_difficulty_label": "Difficulty",
+        "upload_difficulty_select": "Select difficulty",
+        "upload_difficulty_easy": "Easy",
+        "upload_difficulty_medium": "Medium",
+        "upload_difficulty_hard": "Hard",
+        "upload_description_label": "Description",
+        "upload_description_placeholder": "Describe your throw",
+        "upload_btn": "Upload video",
+        "admin_title": "Video management",
+        "admin_description": "Here you can manage uploaded videos. To delete a video, click the \"Delete\" button.",
+        "view3d_title": "3D Trajectory View",
+        "view3d_help": "Use the mouse to rotate and the wheel to zoom",
+        "view3d_top": "Top view",
+        "view3d_side": "Side view",
+        "view3d_first": "First person",
+        "view3d_example_title": "Smoke grenade trajectory on Mirage",
+        "view3d_example_meta": "Smoke grenade • Mirage",
+        "view3d_example_side": "CT side",
+        "view3d_example_desc": "Throw from CT spawn to window at mid. Allows to block enemy vision at the beginning of the round.",
+        "view3d_accuracy": "Accuracy: 95%",
+        "view3d_time": "Flight time: 3.2s",
+        "confirm_title": "Delete confirmation",
+        "confirm_message": "Are you sure you want to delete this collection? This action cannot be undone.",
+        "confirm_yes": "Yes, delete",
+        "confirm_no": "Cancel",
+        "about_title": "About",
+        "about_text1": "NadeSpot is a platform for learning and using grenades in Counter-Strike 2. Our goal is to help players improve their skills and tactical thinking.",
+        "about_text2": "Here you will find carefully selected videos with effective grenade uses on all popular maps. Our team of moderators checks each material before publication.",
+        "about_feature1_title": "Quality content",
+        "about_feature1_desc": "All videos are checked for effectiveness and relevance",
+        "about_feature2_title": "Convenient categorization",
+        "about_feature2_desc": "Grenades are sorted by types and maps for quick search",
+        "about_feature3_title": "All CS2 maps",
+        "about_feature3_desc": "Grenades for all official maps",
+        "about_feature4_title": "Relevant strategies",
+        "about_feature4_desc": "We regularly update the collection for the current game meta",
+        "footer_copyright": "NadeSpot © 2025 - All rights reserved",
+        "footer_demo": "This is a demo site created for educational purposes",
+        "notification_success": "Operation completed successfully!",
+        "notification_error": "An error has occurred!",
+        "notification_info": "Information",
+        "no_videos": "No videos found",
+        "no_videos_text": "Be the first to upload a grenade video!",
+        "no_favorites": "No favorite videos",
+        "no_favorites_text": "Add videos to favorites to easily find them later",
+        "no_collections": "No collections yet",
+        "no_collections_text": "Create your first collection to organize videos"
+      }
+    };
+
+    // Функция для применения перевода
+    function applyLanguage(lang) {
+      // Обновляем атрибут lang у элемента html
+      document.documentElement.lang = lang;
+      
+      // Находим все элементы с атрибутом data-translate
+      const elements = document.querySelectorAll('[data-translate]');
+      
+      // Применяем перевод к каждому элементу
+      elements.forEach(element => {
+        const key = element.getAttribute('data-translate');
+        if (translations[lang] && translations[lang][key]) {
+          element.textContent = translations[lang][key];
+        }
+      });
+      
+      // Обновляем все placeholder'ы
+      const placeholders = document.querySelectorAll('[data-placeholder]');
+      placeholders.forEach(element => {
+        const key = element.getAttribute('data-placeholder');
+        if (translations[lang] && translations[lang][key]) {
+          element.setAttribute('placeholder', translations[lang][key]);
+        }
+      });
+      
+      // Обновляем активную кнопку языка
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        if (btn.getAttribute('data-lang') === lang) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+      
+      // Сохраняем выбранный язык в localStorage
+      localStorage.setItem('preferredLanguage', lang);
+    }
+
+    // Обработчики событий для кнопок переключения языка
+    document.querySelectorAll('.lang-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const lang = this.getAttribute('data-lang');
+        applyLanguage(lang);
+      });
+    });
+
+    // При загрузке страницы пытаемся использовать сохраненный язык или язык браузера
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedLanguage = localStorage.getItem('preferredLanguage');
+      const browserLanguage = navigator.language.substring(0, 2);
+      
+      if (savedLanguage) {
+        applyLanguage(savedLanguage);
+      } else if (browserLanguage in translations) {
+        applyLanguage(browserLanguage);
+      } else {
+        applyLanguage('ru'); // Язык по умолчанию
+      }
+      
+      // Инициализация остального функционала
+      renderVideos();
+      renderCollections();
+    });
+
+    // Хранилище для видео
+    let videos = JSON.parse(localStorage.getItem('nadespot_videos')) || [];
+    let collections = JSON.parse(localStorage.getItem('nadespot_collections')) || [];
+    let favorites = JSON.parse(localStorage.getItem('nadespot_favorites')) || [];
+    let currentUploadType = 'file';
+    let isAdminMode = false;
+    let currentCollectionToDelete = null;
+    
+    // Показать уведомление
+    function showNotification(message, type = 'success') {
+      const notification = document.getElementById('notification');
+      notification.textContent = message;
+      notification.className = `notification ${type} show`;
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
+    
+    // Проверка на дубликаты
+    function isDuplicateVideo(videoData) {
+      return videos.some(video => {
+        // Для YouTube видео проверяем ID
+        if (videoData.type === 'youtube' && video.type === 'youtube') {
+          return video.src === videoData.src;
+        }
+        
+        // Для файлов проверяем название и категорию
+        if (videoData.type === 'file' && video.type === 'file') {
+          return video.title === videoData.title && video.category === videoData.category;
+        }
+        
+        return false;
+      });
+    }
+    
+    // Показать/скрыть секции
+    function showSection(id) {
+      document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+      
+      document.querySelectorAll("nav a").forEach(a => a.classList.remove("active"));
+      event.target.classList.add("active");
+      
+      // Прокрутка наверх
+      window.scrollTo(0, 0);
+      
+      // Если открываем раздел с видео, отображаем их
+      if (id === 'videos') {
+        isAdminMode = false;
+        renderVideos();
+      } else if (id === 'admin') {
+        isAdminMode = true;
+        renderAdminPanel();
+      } else if (id === 'collections') {
+        renderCollections();
+      } else if (id === 'favorites') {
+        renderFavorites();
+      } else if (id === 'view3d') {
+        init3DViewer();
+      }
+    }
+    
+    // Мобильное меню
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      document.getElementById('nav-links').classList.toggle('active');
+    });
+    
+    // Переключение типа загрузки
+    document.querySelectorAll('.upload-type-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.upload-type-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        currentUploadType = this.getAttribute('data-type');
+        
+        document.getElementById('file-upload-section').style.display = 
+          currentUploadType === 'file' ? 'block' : 'none';
+        document.getElementById('youtube-upload-section').style.display = 
+          currentUploadType === 'youtube' ? 'block' : 'none';
+      });
+    });
+    
+    // Загрузка файла
+    document.getElementById('video-file').addEventListener('change', function(e) {
+      if (e.target.files.length > 0) {
+        const fileName = e.target.files[0].name;
+        document.querySelector('#drop-zone p').textContent = `Выбран файл: ${fileName}`;
+      }
+    });
+    
+    // Drag and drop
+    const dropZone = document.getElementById('drop-zone');
+    
+    dropZone.addEventListener('dragover', function(e) {
+      e.preventDefault();
+      this.style.borderColor = 'var(--primary)';
+      this.style.backgroundColor = 'rgba(255, 69, 0, 0.1)';
+    });
+    
+    dropZone.addEventListener('dragleave', function() {
+      this.style.borderColor = '#555';
+      this.style.backgroundColor = 'transparent';
+    });
+    
+    dropZone.addEventListener('drop', function(e) {
+      e.preventDefault();
+      this.style.borderColor = '#555';
+      this.style.backgroundColor = 'transparent';
+      
+      if (e.dataTransfer.files.length > 0) {
+        const file = e.dataTransfer.files[0];
+        if (file.type.startsWith('video/')) {
+          document.getElementById('video-file').files = e.dataTransfer.files;
+          document.querySelector('#drop-zone p').textContent = `Выбран файл: ${file.name}`;
+        } else {
+          showNotification('Пожалуйста, выберите видео файл', 'error');
+        }
+      }
+    });
+    
+    // Загрузка видео
+    function uploadVideo() {
+      const title = document.getElementById('video-title').value;
+      const category = document.getElementById('video-category').value;
+      const map = document.getElementById('video-map').value;
+      const side = document.getElementById('video-side').value;
+      const difficulty = document.getElementById('video-difficulty').value;
+      const description = document.getElementById('video-description').value;
+      
+      if (!title || !category) {
+        showNotification('Пожалуйста, заполните обязательные поля: название и категория', 'error');
+        return;
+      }
+      
+      let videoData = {
+        id: Date.now(),
+        title,
+        category,
+        map,
+        side,
+        difficulty,
+        description,
+        date: new Date().toLocaleDateString('ru-RU'),
+        views: 0,
+        likes: 0,
+        favorites: 0
+      };
+      
+      if (currentUploadType === 'file') {
+        const fileInput = document.getElementById('video-file');
+        if (fileInput.files.length === 0) {
+          showNotification('Пожалуйста, выберите видео файл', 'error');
+          return;
+        }
+        
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+          videoData.src = e.target.result;
+          videoData.type = 'file';
+          
+          // Проверка на дубликаты
+          if (isDuplicateVideo(videoData)) {
+            showNotification('Такое видео уже существует!', 'error');
+            return;
+          }
+          
+          videos.push(videoData);
+          saveVideos();
+          showNotification('Видео успешно загружено!');
+          resetForm();
+          renderVideos();
+        };
+        
+        reader.readAsDataURL(file);
+      } else {
+        const youtubeUrl = document.getElementById('youtube-url').value;
+        if (!youtubeUrl) {
+          showNotification('Пожалуйста, введите ссылку на YouTube видео', 'error');
+          return;
+        }
+        
+        // Преобразуем YouTube ссылку в embed формат
+        let videoId = youtubeUrl.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+        
+        if (videoId) {
+          videoId = videoId[1];
+          videoData.src = `https://www.youtube.com/embed/${videoId}`;
+          videoData.type = 'youtube';
+          
+          // Проверка на дубликаты
+          if (isDuplicateVideo(videoData)) {
+            showNotification('Это YouTube видео уже добавлено!', 'error');
+            return;
+          }
+          
+          videos.push(videoData);
+          saveVideos();
+          showNotification('YouTube видео успешно добавлено!');
+          resetForm();
+          renderVideos();
+        } else {
+          showNotification('Некорректная ссылка на YouTube видео', 'error');
+        }
+      }
+    }
+    
+    // Сохранение видео в localStorage
+    function saveVideos() {
+      localStorage.setItem('nadespot_videos', JSON.stringify(videos));
+    }
+    
+    // Сохранение коллекций
+    function saveCollections() {
+      localStorage.setItem('nadespot_collections', JSON.stringify(collections));
+    }
+    
+    // Сохранение избранного
+    function saveFavorites() {
+      localStorage.setItem('nadespot_favorites', JSON.stringify(favorites));
+    }
+    
+    // Сброс формы
+    function resetForm() {
+      document.getElementById('video-title').value = '';
+      document.getElementById('video-category').value = '';
+      document.getElementById('video-map').value = '';
+      document.getElementById('video-side').value = '';
+      document.getElementById('video-difficulty').value = '';
+      document.getElementById('video-description').value = '';
+      document.getElementById('youtube-url').value = '';
+      document.getElementById('video-file').value = '';
+      document.querySelector('#drop-zone p').textContent = 'Перетащите видеофайл сюда или';
+    }
+    
+    // Отображение видео
+    function renderVideos() {
+      const videoContainer = document.getElementById('video-container');
+      videoContainer.innerHTML = '';
+      
+      if (videos.length === 0) {
+        const lang = document.documentElement.lang || 'ru';
+        videoContainer.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+            <i class="fas fa-video-slash" style="font-size: 50px; color: #555; margin-bottom: 15px;"></i>
+            <h3>${translations[lang]['no_videos']}</h3>
+            <p>${translations[lang]['no_videos_text']}</p>
+          </div>
+        `;
+        return;
+      }
+      
+      videos.forEach(video => {
+        const isFavorited = favorites.includes(video.id);
+        
+        const videoCard = document.createElement('div');
+        videoCard.className = 'video-card';
+        videoCard.setAttribute('data-category', video.category);
+        videoCard.setAttribute('data-map', video.map || '');
+        videoCard.setAttribute('data-side', video.side || '');
+        videoCard.setAttribute('data-difficulty', video.difficulty || '');
+        
+        // Создаем превью для YouTube видео
+        let thumbContent = '';
+        if (video.type === 'youtube') {
+          const videoId = video.src.split('/embed/')[1];
+          thumbContent = `<img src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg" alt="${video.title}">`;
+        } else {
+          thumbContent = `<img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="${video.title}">`;
+        }
+        
+        videoCard.innerHTML = `
+          <div class="video-actions">
+            <button class="action-btn ${isFavorited ? 'favorited' : ''}" onclick="toggleFavorite(${video.id}, this)">
+              <i class="fas fa-star"></i>
+            </button>
+            <button class="action-btn" onclick="addToCollection(${video.id})">
+              <i class="fas fa-folder-plus"></i>
+            </button>
+          </div>
+          <div class="video-thumb" onclick="openVideo(${video.id})">
+            ${thumbContent}
+            <div class="play-icon"><i class="fas fa-play"></i></div>
+            <div class="video-duration">2:15</div>
+          </div>
+          <div class="video-info">
+            <h3 class="video-title">${video.title}</h3>
+            <div class="video-meta">
+              <span>${getCategoryName(video.category)}</span>
+              <span>${video.map || 'Не указана'}</span>
+            </div>
+            <p>${video.description || 'Описание отсутствует'}</p>
+            <div class="video-stats">
+              <div class="video-stat">
+                <i class="far fa-eye"></i>
+                <span>${video.views}</span>
+              </div>
+              <div class="video-stat">
+                <i class="far fa-thumbs-up"></i>
+                <span>${video.likes}</span>
+              </div>
+              <div class="video-stat">
+                <i class="fas fa-star"></i>
+                <span>${video.favorites || 0}</span>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        videoContainer.appendChild(videoCard);
+      });
+    }
+    
+    // Поиск видео
+    function searchVideos() {
+      const searchTerm = document.getElementById('search-input').value.toLowerCase();
+      const videoCards = document.querySelectorAll('.video-card');
+      
+      videoCards.forEach(card => {
+        const title = card.querySelector('.video-title').textContent.toLowerCase();
+        const description = card.querySelector('p').textContent.toLowerCase();
+        const map = card.getAttribute('data-map').toLowerCase();
+        
+        if (title.includes(searchTerm) || description.includes(searchTerm) || map.includes(searchTerm)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+    
+    // Фильтрация видео
+    function filterVideos() {
+      const category = document.getElementById('filter-category').value;
+      const map = document.getElementById('filter-map').value;
+      const side = document.getElementById('filter-side').value;
+      const sort = document.getElementById('filter-sort').value;
+      
+      const videoCards = document.querySelectorAll('.video-card');
+      
+      videoCards.forEach(card => {
+        const videoCategory = card.getAttribute('data-category');
+        const videoMap = card.getAttribute('data-map');
+        const videoSide = card.getAttribute('data-side');
+        
+        let show = true;
+        
+        if (category !== 'all' && videoCategory !== category) show = false;
+        if (map !== 'all' && videoMap !== map) show = false;
+        if (side !== 'all' && videoSide !== side) show = false;
+        
+        card.style.display = show ? 'block' : 'none';
+      });
+      
+      // Сортировка
+      // Здесь можно добавить логику сортировки
+    }
+    
+    // Добавление в избранное
+    function toggleFavorite(videoId, element) {
+      const index = favorites.indexOf(videoId);
+      
+      if (index === -1) {
+        // Добавляем в избранное
+        favorites.push(videoId);
+        element.classList.add('favorited');
+        
+        // Увеличиваем счетчик избранного у видео
+        const video = videos.find(v => v.id === videoId);
+        if (video) {
+          video.favorites = (video.favorites || 0) + 1;
+          saveVideos();
+        }
+        
+        showNotification('Добавлено в избранное');
+      } else {
+        // Удаляем из избранного
+        favorites.splice(index, 1);
+        element.classList.remove('favorited');
+        
+        // Уменьшаем счетчик избранного у видео
+        const video = videos.find(v => v.id === videoId);
+        if (video && video.favorites > 0) {
+          video.favorites -= 1;
+          saveVideos();
+        }
+        
+        showNotification('Удалено из избранного');
+      }
+      
+      saveFavorites();
+      
+      // Если мы на странице избранного, перерисовываем
+      if (document.getElementById('favorites').classList.contains('active')) {
+        renderFavorites();
+      }
+    }
+    
+    // Отображение избранного
+    function renderFavorites() {
+      const favoritesContainer = document.getElementById('favorites-container');
+      favoritesContainer.innerHTML = '';
+      
+      if (favorites.length === 0) {
+        const lang = document.documentElement.lang || 'ru';
+        favoritesContainer.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+            <i class="far fa-star" style="font-size: 50px; color: #555; margin-bottom: 15px;"></i>
+            <h3>${translations[lang]['no_favorites']}</h3>
+            <p>${translations[lang]['no_favorites_text']}</p>
+          </div>
+        `;
+        return;
+      }
+      
+      videos.forEach(video => {
+        if (favorites.includes(video.id)) {
+          const videoCard = document.createElement('div');
+          videoCard.className = 'video-card';
+          
+          // Создаем превью для YouTube видео
+          let thumbContent = '';
+          if (video.type === 'youtube') {
+            const videoId = video.src.split('/embed/')[1];
+            thumbContent = `<img src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg" alt="${video.title}">`;
+          } else {
+            thumbContent = `<img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="${video.title}">`;
+          }
+          
+          videoCard.innerHTML = `
+            <div class="video-actions">
+              <button class="action-btn favorited" onclick="toggleFavorite(${video.id}, this)">
+                <i class="fas fa-star"></i>
+              </button>
+              <button class="action-btn" onclick="addToCollection(${video.id})">
+                <i class="fas fa-folder-plus"></i>
+              </button>
+            </div>
+            <div class="video-thumb" onclick="openVideo(${video.id})">
+              ${thumbContent}
+              <div class="play-icon"><i class="fas fa-play"></i></div>
+              <div class="video-duration">2:15</div>
+            </div>
+            <div class="video-info">
+              <h3 class="video-title">${video.title}</h3>
+              <div class="video-meta">
+                <span>${getCategoryName(video.category)}</span>
+                <span>${video.map || 'Не указана'}</span>
+              </div>
+              <p>${video.description || 'Описание отсутствует'}</p>
+              <div class="video-stats">
+                <div class="video-stat">
+                  <i class="far fa-eye"></i>
+                  <span>${video.views}</span>
+                </div>
+                <div class="video-stat">
+                  <i class="far fa-thumbs-up"></i>
+                  <span>${video.likes}</span>
+                </div>
+                <div class="video-stat">
+                  <i class="fas fa-star"></i>
+                  <span>${video.favorites || 0}</span>
+                </div>
+              </div>
+            </div>
+          `;
+          
+          favoritesContainer.appendChild(videoCard);
+        }
+      });
+    }
+    
+    // Создание новой коллекции
+    function createNewCollection() {
+      const lang = document.documentElement.lang || 'ru';
+      const name = prompt(translations[lang]['upload_title_placeholder']);
+      if (!name) return;
+      
+      const newCollection = {
+        id: Date.now(),
+        name,
+        description: '',
+        videos: [],
+        created: new Date().toLocaleDateString('ru-RU')
+      };
+      
+      collections.push(newCollection);
+      saveCollections();
+      renderCollections();
+      showNotification('Коллекция создана');
+    }
+    
+    // Добавление видео в коллекцию
+    function addToCollection(videoId) {
+      if (collections.length === 0) {
+        showNotification('Сначала создайте коллекцию', 'info');
+        setTimeout(createNewCollection, 500);
+        return;
+      }
+      
+      let options = '<option value="">Выберите коллекцию</option>';
+      collections.forEach(collection => {
+        options += `<option value="${collection.id}">${collection.name}</option>`;
+      });
+      
+      const collectionId = prompt(`Выберите коллекцию для добавления:\n${options}`);
+      if (!collectionId) return;
+      
+      const collection = collections.find(c => c.id == collectionId);
+      if (collection) {
+        if (!collection.videos.includes(videoId)) {
+          collection.videos.push(videoId);
+          saveCollections();
+          showNotification('Видео добавлено в коллекцию');
+        } else {
+          showNotification('Это видео уже в коллекции', 'info');
+        }
+      }
+    }
+    
+    // Отображение коллекций
+    function renderCollections() {
+      const collectionsContainer = document.getElementById('collections-container');
+      collectionsContainer.innerHTML = '';
+      
+      if (collections.length === 0) {
+        const lang = document.documentElement.lang || 'ru';
+        collectionsContainer.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+            <i class="far fa-folder-open" style="font-size: 50px; color: #555; margin-bottom: 15px;"></i>
+            <h3>${translations[lang]['no_collections']}</h3>
+            <p>${translations[lang]['no_collections_text']}</p>
+          </div>
+        `;
+        return;
+      }
+      
+      collections.forEach(collection => {
+        const collectionCard = document.createElement('div');
+        collectionCard.className = 'collection-card';
+        
+        // Получаем первое видео для превью
+        let thumbSrc = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
+        if (collection.videos.length > 0) {
+          const firstVideo = videos.find(v => v.id === collection.videos[0]);
+          if (firstVideo && firstVideo.type === 'youtube') {
+            const videoId = firstVideo.src.split('/embed/')[1];
+            thumbSrc = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+          }
+        }
+        
+        collectionCard.innerHTML = `
+          <div class="collection-actions">
+            <button class="collection-action-btn" onclick="event.stopPropagation(); confirmDeleteCollection(${collection.id})">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+          <div class="collection-thumb">
+            <img src="${thumbSrc}" alt="${collection.name}">
+            <div class="collection-count">${collection.videos.length} видео</div>
+          </div>
+          <div class="collection-info">
+            <h3 class="collection-title">${collection.name}</h3>
+            <p class="collection-desc">${collection.description || 'Описание отсутствует'}</p>
+            <div class="collection-meta">
+              <span>Создана: ${collection.created}</span>
+              <span><i class="fas fa-video"></i> ${collection.videos.length}</span>
+            </div>
+          </div>
+        `;
+        
+        collectionCard.addEventListener('click', () => openCollection(collection.id));
+        collectionsContainer.appendChild(collectionCard);
+      });
+    }
+    
+    // Открытие коллекции
+    function openCollection(collectionId) {
+      const collection = collections.find(c => c.id === collectionId);
+      if (!collection) return;
+      
+      // Здесь можно реализовать просмотр содержимого коллекции
+      alert(`Коллекция: ${collection.name}\nКоличество видео: ${collection.videos.length}`);
+    }
+    
+    // Инициализация 3D просмотра
+    function init3DViewer() {
+      const canvas = document.getElementById('nade-canvas');
+      const ctx = canvas.getContext('2d');
+      
+      // Очищаем canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Рисуем простую траекторию гранаты
+      ctx.beginPath();
+      ctx.moveTo(100, 350);
+      ctx.quadraticCurveTo(400, 50, 700, 250);
+      ctx.strokeStyle = '#ff4500';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+      
+      // Рисуем точки броска и взрыва
+      ctx.beginPath();
+      ctx.arc(100, 350, 10, 0, Math.PI * 2);
+      ctx.fillStyle = '#4CAF50';
+      ctx.fill();
+      
+      ctx.beginPath();
+      ctx.arc(700, 250, 10, 0, Math.PI * 2);
+      ctx.fillStyle = '#F44336';
+      ctx.fill();
+      
+      // Добавляем текст
+      ctx.font = '16px Arial';
+      ctx.fillStyle = 'white';
+      ctx.fillText('Точка броска', 50, 340);
+      ctx.fillText('Точка взрыва', 650, 240);
+      ctx.fillText('Траектория полета', 350, 30);
+    }
+    
+    // Смена вида в 3D просмотре
+    function changeView(viewType) {
+      showNotification(`Режим просмотра: ${viewType === 'top' ? 'Вид сверху' : viewType === 'side' ? 'Вид сбоку' : 'От первого лица'}`, 'info');
+      // Здесь будет код для изменения вида в 3D просмотре
+    }
+    
+    // Отображение панели администратора
+    function renderAdminPanel() {
+      const adminList = document.getElementById('admin-video-list');
+      adminList.innerHTML = '';
+      
+      if (videos.length === 0) {
+        const lang = document.documentElement.lang || 'ru';
+        adminList.innerHTML = `
+          <div style="text-align: center; padding: 40px;">
+            <i class="fas fa-video-slash" style="font-size: 50px; color: #555; margin-bottom: 15px;"></i>
+            <h3>${translations[lang]['no_videos']}</h3>
+            <p>${translations[lang]['no_videos_text']}</p>
+          </div>
+        `;
+        return;
+      }
+      
+      videos.forEach(video => {
+        const videoItem = document.createElement('div');
+        videoItem.className = 'admin-video-item';
+        
+        videoItem.innerHTML = `
+          <div class="admin-video-info">
+            <div class="admin-video-title">${video.title}</div>
+            <div class="admin-video-meta">
+              ${getCategoryName(video.category)} • ${video.map || 'Не указана'} • 
+              ${video.date} • Просмотры: ${video.views}
+            </div>
+          </div>
+          <button class="btn btn-danger" onclick="deleteVideo(${video.id})">
+            <i class="fas fa-trash"></i> Удалить
+          </button>
+        `;
+        
+        adminList.appendChild(videoItem);
+      });
+    }
+    
+    // Удаление видео
+    function deleteVideo(videoId) {
+      if (confirm('Вы уверены, что хотите удалить это видео?')) {
+        // Удаляем видео из всех коллекций
+        collections.forEach(collection => {
+          const index = collection.videos.indexOf(videoId);
+          if (index !== -1) {
+            collection.videos.splice(index, 1);
+          }
+        });
+        
+        // Удаляем из избранного
+        const favIndex = favorites.indexOf(videoId);
+        if (favIndex !== -1) {
+          favorites.splice(favIndex, 1);
+          saveFavorites();
+        }
+        
+        // Удаляем само видео
+        videos = videos.filter(video => video.id !== videoId);
+        saveVideos();
+        saveCollections();
+        
+        if (isAdminMode) {
+          renderAdminPanel();
+        } else {
+          renderVideos();
+        }
+        
+        showNotification('Видео успешно удалено!');
+      }
+    }
+    
+    // Получение названия категории
+    function getCategoryName(category) {
+      const categories = {
+        'smoke': 'Дымовая',
+        'flash': 'Светошумовая',
+        'molotov': 'Зажигательная',
+        'he': 'Осколочная'
+      };
+      return categories[category] || category;
+    }
+    
+    // Открытие видео
+    function openVideo(videoId) {
+      const video = videos.find(v => v.id === videoId);
+      if (video) {
+        // Увеличиваем счетчик просмотров
+        video.views++;
+        saveVideos();
+        
+        const modalContainer = document.getElementById('modal-video-container');
+        modalContainer.innerHTML = '';
+        
+        if (video.type === 'youtube') {
+          // Для YouTube используем iframe
+          const iframe = document.createElement('iframe');
+          iframe.className = 'modal-video';
+          iframe.src = video.src;
+          iframe.frameBorder = '0';
+          iframe.allowFullscreen = true;
+          modalContainer.appendChild(iframe);
+        } else {
+          // Для загруженных файлов используем video тег
+          const videoElement = document.createElement('video');
+          videoElement.className = 'modal-video';
+          videoElement.controls = true;
+          
+          const source = document.createElement('source');
+          source.src = video.src;
+          source.type = 'video/mp4';
+          
+          videoElement.appendChild(source);
+          modalContainer.appendChild(videoElement);
+        }
+        
+        document.getElementById('modal-title').textContent = video.title;
+        document.getElementById('modal-category').textContent = `${getCategoryName(video.category)}${video.map ? ' • ' + video.map : ''}`;
+        document.getElementById('modal-date').textContent = video.date;
+        document.getElementById('modal-description').textContent = video.description || 'Описание отсутствует';
+        document.getElementById('modal-views').textContent = video.views;
+        document.getElementById('modal-likes').textContent = video.likes;
+        
+        document.getElementById('video-modal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+    
+    // Закрытие видео
+    function closeVideo() {
+      document.getElementById('video-modal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+      
+      // Останавливаем видео при закрытии
+      const videoContainer = document.getElementById('modal-video-container');
+      const videoElement = videoContainer.querySelector('video, iframe');
+      
+      if (videoElement) {
+        if (videoElement.tagName === 'VIDEO') {
+          videoElement.pause();
+        } else if (videoElement.tagName === 'IFRAME') {
+          // Для YouTube iframe меняем src чтобы остановить видео
+          const src = videoElement.src;
+          videoElement.src = '';
+          videoElement.src = src;
+        }
+      }
+    }
+    
+    // Закрытие модального окна при клике вне его
+    document.getElementById('video-modal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeVideo();
+      }
+    });
+    
+    // Фильтрация видео по категориям
+    document.querySelectorAll('.category-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        // Убираем активный класс у всех кнопок
+        document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+        // Добавляем активный класс текуной кнопке
+        this.classList.add('active');
+        
+        const filter = this.getAttribute('data-filter');
+        
+        document.querySelectorAll('.video-card').forEach(card => {
+          if (filter === 'all' || card.getAttribute('data-category') === filter) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+    
+    // Инициализация модального окна подтверждения
+    document.getElementById('confirm-yes').addEventListener('click', function() {
+      if (currentCollectionToDelete !== null) {
+        deleteCollection(currentCollectionToDelete);
+        document.getElementById('confirm-modal').classList.remove('active');
+        currentCollectionToDelete = null;
+      }
+    });
+    
+    document.getElementById('confirm-no').addEventListener('click', function() {
+      document.getElementById('confirm-modal').classList.remove('active');
+      currentCollectionToDelete = null;
+    });
+    
+    // Функция подтверждения удаления коллекции
+    function confirmDeleteCollection(collectionId) {
+      const collection = collections.find(c => c.id === collectionId);
+      if (!collection) return;
+      
+      currentCollectionToDelete = collectionId;
+      
+      document.getElementById('confirm-title').textContent = `Удаление коллекции`;
+      document.getElementById('confirm-message').textContent = 
+        `Вы уверены, что хотите удалить коллекцию "${collection.name}"? Это действие нельзя отменить.`;
+      
+      document.getElementById('confirm-modal').classList.add('active');
+    }
+    
+    // Функция удаления коллекции
+    function deleteCollection(collectionId) {
+      collections = collections.filter(c => c.id !== collectionId);
+      saveCollections();
+      renderCollections();
+      showNotification('Коллекция успешно удалена');
+    }
+  </script>
+</body>
+</html>
